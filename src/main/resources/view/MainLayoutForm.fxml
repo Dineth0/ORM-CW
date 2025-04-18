@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="MainLayout" maxHeight="650.0" prefHeight="650.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.ormcw.controller.MainLayoutFormController">
+   <children>
+      <ImageView fitHeight="650.0" fitWidth="792.0">
+         <image>
+            <Image url="@images/mental-modified.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="110.0" layoutY="10.0" prefHeight="35.0" prefWidth="559.0" text="Wellcome Serenity Mental Health Therapy Center" textFill="#be5985">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Pane layoutX="44.0" layoutY="58.0" prefHeight="140.0" prefWidth="200.0" style="-fx-background-color: #4F1C51;">
+         <children>
+            <Label layoutX="41.0" layoutY="16.0" text="TOTAL PATIENTS " textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="54.0" fitWidth="48.0" layoutX="138.0" layoutY="65.0">
+               <image>
+                  <Image url="@images/patient.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lbltotalpatient" layoutX="53.0" layoutY="66.0" prefHeight="53.0" prefWidth="57.0" text="0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="291.0" layoutY="58.0" prefHeight="140.0" prefWidth="200.0" style="-fx-background-color: #4F1C51;">
+         <children>
+            <ImageView layoutX="135.0" layoutY="68.0">
+               <image>
+                  <Image url="@images/therapist.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="44.0" layoutY="18.0" text="TOTAL THERAPIST" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="58.0" layoutY="66.0" prefHeight="53.0" prefWidth="57.0" text="0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="541.0" layoutY="57.0" prefHeight="140.0" prefWidth="200.0" style="-fx-background-color: #4F1C51;">
+         <children>
+            <ImageView layoutX="138.0" layoutY="70.0">
+               <image>
+                  <Image url="@images/program.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="45.0" layoutY="21.0" text="TOTAL PROGRAMS" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="60.0" layoutY="67.0" prefHeight="53.0" prefWidth="57.0" text="0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
