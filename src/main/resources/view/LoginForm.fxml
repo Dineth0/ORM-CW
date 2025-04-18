@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.BoxBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="LoginPage" cache="true" maxHeight="628.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="650.0" prefWidth="1000.0" style="visibility: #6AA081;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.ormcw.controller.LoginFormController">
+   <children>
+      <AnchorPane layoutX="-1.0" layoutY="-1.0" prefHeight="511.0" prefWidth="860.0">
+         <children>
+            <ImageView fitHeight="650.0" fitWidth="1000.0" layoutX="1.0" layoutY="1.0">
+               <image>
+                  <Image url="@images/serenity.png" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f7f9fb" height="545.0" layoutX="166.0" layoutY="43.0" stroke="BLACK" strokeType="INSIDE" style="-fx-opacity: 0.3;" width="658.0">
+               <effect>
+                  <BoxBlur />
+               </effect>
+            </Rectangle>
+            <TextField fx:id="txtUsername" layoutX="431.0" layoutY="209.0" prefHeight="32.0" prefWidth="163.0" promptText="UserName" style="-fx-background-color: #7A73D1;" />
+            <PasswordField fx:id="txtPassword" layoutX="425.0" layoutY="273.0" prefHeight="32.0" prefWidth="163.0" promptText="Password" style="-fx-background-color: #7A73D1;" />
+            <Button id="login" layoutX="381.0" layoutY="409.0" mnemonicParsing="false" onAction="#loginOnAction" prefHeight="42.0" prefWidth="191.0" style="-fx-background-color: #7D1C4A; -fx-background-radius: 20;" styleClass="login" stylesheets="@../styles/LoginForm.css" text="LOGIN" textFill="#f8f4f4">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <TextField fx:id="txtRole" layoutX="424.0" layoutY="336.0" prefHeight="32.0" prefWidth="163.0" promptText="Role" style="-fx-background-color: #7A73D1;" />
+            <Button id="login" fx:id="register" layoutX="418.0" layoutY="524.0" mnemonicParsing="false" onAction="#RegistorOnAction" prefHeight="32.0" prefWidth="163.0" style="-fx-background-color: #7D1C4A; -fx-background-radius: 20;" styleClass="login" stylesheets="@../styles/LoginForm.css" text="Registor" textFill="#fdfcfc">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+         </children></AnchorPane>
+   </children>
+</AnchorPane>
