@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="searchpage" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.ormcw.controller.SearchController">
+   <children>
+      <TableView fx:id="searchtable" prefHeight="400.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="colid" prefWidth="75.0" text="PatinetID" />
+            <TableColumn fx:id="coldate" prefWidth="192.66668701171875" text="SessionDate" />
+            <TableColumn fx:id="coltime" prefWidth="157.3333740234375" text="SessionTime" />
+            <TableColumn fx:id="colstatus" prefWidth="172.0" text="Status" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
