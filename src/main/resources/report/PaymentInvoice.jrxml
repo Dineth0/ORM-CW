@@ -1,0 +1,115 @@
+<!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0-b478feaa9aab4375eba71de77b4ca138ad2f62aa  -->
+<jasperReport name="Paymentinvoice" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d2af971f-2d77-41d8-985a-b787f5292657">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (26)"/>
+	<parameter name="P_paymentId" class="java.lang.String"/>
+	<query language="SQL"><![CDATA[SELECT 
+    p.paymentId, 
+    pt.name, 
+    ts.sessionId, 
+    ts.sessionDate, 
+    p.amount, 
+    p.paymentDate, 
+    p.status
+FROM 
+    Payment p 
+JOIN 
+    Patient pt ON p.patientId = pt.patientId 
+JOIN 
+    Therapy_Session ts ON ts.patientId = pt.patientId 
+WHERE 
+    p.paymentId =$P{P_paymentId}
+]]></query>
+	<field name="paymentId" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="paymentId"/>
+		<property name="com.jaspersoft.studio.field.label" value="paymentId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="name"/>
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="patient"/>
+	</field>
+	<field name="sessionId" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sessionId"/>
+		<property name="com.jaspersoft.studio.field.label" value="sessionId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="therapy_session"/>
+	</field>
+	<field name="sessionDate" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="sessionDate"/>
+		<property name="com.jaspersoft.studio.field.label" value="sessionDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="therapy_session"/>
+	</field>
+	<field name="amount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
+	</field>
+	<field name="paymentDate" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="paymentDate"/>
+		<property name="com.jaspersoft.studio.field.label" value="paymentDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
+	</field>
+	<field name="status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Status"/>
+		<property name="com.jaspersoft.studio.field.label" value="status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="79" splitType="Stretch">
+		<element kind="staticText" uuid="dcf7c5f9-2e82-4556-8a69-81a844acdcc8" x="140" y="0" width="276" height="49" fontSize="26.0" bold="true" italic="true" hTextAlign="Center">
+			<text><![CDATA[Payment Invoice]]></text>
+		</element>
+	</title>
+	<pageHeader height="339" splitType="Stretch">
+		<element kind="staticText" uuid="8fe2d1a3-86a8-4209-a959-4e5c3fab4e33" x="20" y="10" width="140" height="30" fontSize="16.0" bold="true">
+			<text><![CDATA[Patient ID     :]]></text>
+		</element>
+		<element kind="staticText" uuid="2746548f-a42b-4c5d-9d0f-f344064c247f" x="20" y="50" width="140" height="30" fontSize="16.0" bold="true">
+			<text><![CDATA[Patient Name     :]]></text>
+		</element>
+		<element kind="staticText" uuid="86ad9350-3019-49a5-95a2-eefc1ff6dd17" x="20" y="90" width="140" height="30" fontSize="16.0" bold="true">
+			<text><![CDATA[Session ID     :]]></text>
+		</element>
+		<element kind="staticText" uuid="b36d515b-a58c-45cf-99c2-af9772b571d4" x="20" y="130" width="140" height="30" fontSize="16.0" bold="true">
+			<text><![CDATA[Session Date     :]]></text>
+		</element>
+		<element kind="staticText" uuid="f92f43a4-0ae9-4efb-a528-28acae8693b4" x="20" y="170" width="140" height="30" fontSize="16.0" bold="true">
+			<text><![CDATA[Amount     :]]></text>
+		</element>
+		<element kind="staticText" uuid="724ccba4-8aca-4f74-903b-1d8ee85dc843" x="20" y="210" width="140" height="30" fontSize="16.0" bold="true">
+			<text><![CDATA[Payment Date     :]]></text>
+		</element>
+		<element kind="staticText" uuid="64473f5f-0e1e-4f33-b99c-72959bb0c932" x="20" y="250" width="140" height="30" fontSize="16.0" bold="true">
+			<text><![CDATA[Status     :]]></text>
+		</element>
+		<element kind="textField" uuid="065917fe-81bc-4c90-a948-c719a9e00e7a" x="210" y="10" width="81" height="30">
+			<expression><![CDATA[$F{paymentId}]]></expression>
+		</element>
+		<element kind="textField" uuid="4929f9c0-aca1-4112-8383-1a0cf8fcb27e" x="210" y="60" width="79" height="30">
+			<expression><![CDATA[$F{name}]]></expression>
+		</element>
+		<element kind="textField" uuid="2658c4af-b624-4307-b7fc-1d5969ba8871" x="210" y="100" width="79" height="30">
+			<expression><![CDATA[$F{sessionId}]]></expression>
+		</element>
+		<element kind="textField" uuid="07dba1e5-a861-4326-a67f-a977270e9eba" x="210" y="135" width="150" height="30">
+			<expression><![CDATA[$F{sessionDate}]]></expression>
+		</element>
+		<element kind="textField" uuid="d5152cb0-199e-49bd-86c6-6ab9d32527cd" x="210" y="170" width="79" height="30">
+			<expression><![CDATA[$F{amount}]]></expression>
+		</element>
+		<element kind="textField" uuid="0625126e-8066-4a32-b9d1-c27e41e41283" x="210" y="210" width="150" height="30">
+			<expression><![CDATA[$F{paymentDate}]]></expression>
+		</element>
+		<element kind="textField" uuid="ccb53fbe-3564-4d59-bcba-700df26a3906" x="210" y="250" width="79" height="30">
+			<expression><![CDATA[$F{status}]]></expression>
+		</element>
+	</pageHeader>
+	<columnHeader height="61" splitType="Stretch"/>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter height="45" splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

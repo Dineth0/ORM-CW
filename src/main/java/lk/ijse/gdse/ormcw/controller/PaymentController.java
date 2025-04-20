@@ -13,6 +13,7 @@ import lk.ijse.gdse.ormcw.bo.BOFactory;
 import lk.ijse.gdse.ormcw.bo.custom.PatientBO;
 import lk.ijse.gdse.ormcw.bo.custom.PatientRegistrationBO;
 import lk.ijse.gdse.ormcw.bo.custom.PaymentBO;
+import lk.ijse.gdse.ormcw.config.FactoryConfiguration;
 import lk.ijse.gdse.ormcw.dao.custom.PatientRegistrationDAO;
 import lk.ijse.gdse.ormcw.dto.PatientDTO;
 import lk.ijse.gdse.ormcw.dto.PatientRegistrationDTO;
@@ -20,16 +21,17 @@ import lk.ijse.gdse.ormcw.dto.PaymentDTO;
 import lk.ijse.gdse.ormcw.entity.Patient_Registration;
 import lk.ijse.gdse.ormcw.tm.PatientRegistrationTM;
 import lk.ijse.gdse.ormcw.tm.PaymentTM;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
+import org.hibernate.Session;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class PaymentController implements Initializable {
 
@@ -278,6 +280,42 @@ public class PaymentController implements Initializable {
         lbldate.setText("");
 
 
+    }
+    @FXML
+    void ReportOnAction(ActionEvent event) {
+        PaymentTM paymentTM = PaymentTable.getSelectionModel().getSelectedItem();
+        if(paymentTM == null){
+            return;
+        }
+        try {
+            JasperReport jasperReport = JasperCompileManager.compileReport(
+                    getClass()
+                            .getResourceAsStream("/report/PaymentInvoice.jrxml"
+                            ));
+
+            Session session = FactoryConfiguration.getInstance().getSession();
+            session.beginTransaction();
+
+            Connection connection = session.doReturningWork(conn -> conn);
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("P_paymentId", paymentTM.getPaymentId() );
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    jasperReport,
+                    params,
+                    connection
+            );
+
+            JasperViewer.viewReport(jasperPrint, false);
+            session.getTransaction().commit();
+            session.close();
+        } catch (JRException e) {
+            new Alert(Alert.AlertType.ERROR, "Fail to generate report...!").show();
+//           e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

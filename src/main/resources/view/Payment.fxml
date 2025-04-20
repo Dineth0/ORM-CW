@@ -111,5 +111,10 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
+      <Button fx:id="btnreport" layoutX="415.0" layoutY="250.0" mnemonicParsing="false" onAction="#ReportOnAction" prefHeight="31.0" prefWidth="175.0" style="-fx-background-color: #3A59D1;" text="Report">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
