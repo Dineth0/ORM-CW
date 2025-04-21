@@ -24,16 +24,16 @@ import java.util.ResourceBundle;
 public class SearchController implements Initializable {
 
     @FXML
-    private TableColumn<TherapySessionDTO, Date> coldate;
+    private TableColumn<TherapySessionTM, Date> coldate;
 
     @FXML
-    private TableColumn<TherapySessionDTO, String> colid;
+    private TableColumn<TherapySessionTM, String> colid;
 
     @FXML
-    private TableColumn<TherapySessionDTO, String> colstatus;
+    private TableColumn<TherapySessionTM, String> colstatus;
 
     @FXML
-    private TableColumn<TherapySessionDTO, String> coltime;
+    private TableColumn<TherapySessionTM, String> coltime;
 
     @FXML
     private AnchorPane searchpage;

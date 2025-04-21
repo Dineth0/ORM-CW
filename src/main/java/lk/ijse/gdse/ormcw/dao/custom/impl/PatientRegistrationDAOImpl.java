@@ -3,6 +3,7 @@ package lk.ijse.gdse.ormcw.dao.custom.impl;
 import lk.ijse.gdse.ormcw.config.FactoryConfiguration;
 import lk.ijse.gdse.ormcw.dao.custom.PatientRegistrationDAO;
 import lk.ijse.gdse.ormcw.dto.PatientRegistrationDTO;
+import lk.ijse.gdse.ormcw.entity.Patient;
 import lk.ijse.gdse.ormcw.entity.Patient_Registration;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -114,5 +115,18 @@ public class PatientRegistrationDAOImpl implements PatientRegistrationDAO {
 
         return update > 0;
     }
+    @Override
+    public double getBalanceByPatientId(String patientId) throws IOException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        Double balance = session.createQuery("SELECT pr.balance FROM Patient_Registration pr WHERE pr.patient.patientId = :patientId", Double.class)
+                .setParameter("patientId", patientId).uniqueResult();
+
+        transaction.commit();
+        session.close();
+        return balance != null ? balance : 0.00;
+        }
+
 
 }

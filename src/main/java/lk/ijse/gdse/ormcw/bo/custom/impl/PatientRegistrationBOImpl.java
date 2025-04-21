@@ -99,24 +99,16 @@ public class PatientRegistrationBOImpl implements PatientRegistrationBO {
         return patientRegistrationDAO.delete(ID);
     }
 
-    @Override
-    public PatientRegistrationDTO findById(String patientId) throws SQLException, ClassNotFoundException, IOException {
-        Patient_Registration reg = patientRegistrationDAO.findById(patientId);
-        if (reg == null) return null;
 
-        return new PatientRegistrationDTO(
-                reg.getRegistrationId(),
-                reg.getPatient().getPatientId(),
-                reg.getTherapyProgram(),
-                reg.getRegistrationDate(),
-                reg.getRegisterFee(),
-                reg.getBalance()
-        );
-    }
 
 
     @Override
     public boolean updateBalance(String patientId) throws SQLException, ClassNotFoundException, IOException {
         return patientRegistrationDAO.updateBalance(patientId);
+    }
+
+    @Override
+    public double getBalanceByPatientId(String patientId) throws IOException {
+        return patientRegistrationDAO.getBalanceByPatientId(patientId);
     }
 }

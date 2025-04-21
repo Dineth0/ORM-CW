@@ -97,6 +97,9 @@ public class PaymentController implements Initializable {
     @FXML
     private Label lblbalance;
 
+    @FXML
+    private TextField txtsearch;
+
 
 
     PaymentBO paymentBO = (PaymentBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PAYMENT);
@@ -135,14 +138,12 @@ public class PaymentController implements Initializable {
     void ComboPatientIdOnAction(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {
         String selectedID = combopatientid.getValue();
         PatientDTO patientDTO = patientBO.findById(selectedID);
-
         if (patientDTO != null) {
             lblPatientid.setText(patientDTO.getName());
         }
-        PatientRegistrationDTO patientRegistrationDTO = patientRegistrationBO.findById(selectedID);
-        if(patientRegistrationDTO != null) {
-            System.out.println("Balance :"+patientRegistrationDTO.getBalance());
-            lblbalance.setText(String.valueOf(patientRegistrationDTO.getBalance()));
+        if (selectedID != null) {
+            double balance = patientRegistrationBO.getBalanceByPatientId(selectedID);
+            lblbalance.setText(String.format("%.2f", balance));
         }
     }
 
@@ -274,8 +275,6 @@ public class PaymentController implements Initializable {
                     paymentDTO.getAmount(),
                     paymentDTO.getPaymentDate(),
                     paymentDTO.getStatus()
-
-
             );
             paymentTMS.add(paymentTM);
         }
@@ -330,6 +329,11 @@ public class PaymentController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @FXML
+    void PaymentSearchOnAction(ActionEvent event) {
+
     }
 
 
