@@ -19,7 +19,7 @@ public class Patient implements SuperEntity{
     @Column(name = "PatientID")
     private String patientId;
     private String name;
-    private Date birthday;
+    private String age;
     private int contactNumber;
     private String medicalHistory;
 
@@ -34,10 +34,10 @@ public class Patient implements SuperEntity{
 
 
 
-    public Patient(String patientId, String name, Date birthday, Integer contactNumber, String medicalHistory) {
+    public Patient(String patientId, String name, String age, Integer contactNumber, String medicalHistory) {
         this.patientId = patientId;
         this.name = name;
-        this.birthday = birthday;
+        this.age = age;
         this.contactNumber = (contactNumber != null) ? contactNumber : 0; // Null නම් Default Value දෙන්න
         this.medicalHistory = medicalHistory;
     }

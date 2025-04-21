@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -28,12 +27,12 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="46.0" layoutY="140.0" prefHeight="31.0" prefWidth="101.0" text="Birthday">
+      <Label layoutX="47.0" layoutY="136.0" prefHeight="31.0" prefWidth="101.0" text="Age">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="43.0" layoutY="181.0" prefHeight="31.0" prefWidth="111.0" text="Contact Number">
+      <Label layoutX="43.0" layoutY="180.0" prefHeight="31.0" prefWidth="111.0" text="Contact Number">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -63,7 +62,7 @@
          <columns>
             <TableColumn fx:id="colid" prefWidth="75.0" text="patientId" />
             <TableColumn fx:id="colname" prefWidth="165.33334350585938" text="Name" />
-            <TableColumn fx:id="colbirthday" prefWidth="132.0" text="Birthday" />
+            <TableColumn fx:id="colage" prefWidth="132.0" text="Age" />
             <TableColumn fx:id="colcontact" prefWidth="156.00003051757812" text="ContactNumber" />
             <TableColumn fx:id="colmedical" prefWidth="230.66668701171875" text="MedicalHistory" />
          </columns>
@@ -85,12 +84,11 @@
       </ImageView>
       <TextField fx:id="txtcontactnumber" layoutX="199.0" layoutY="182.0" prefHeight="25.0" prefWidth="320.0" style="-fx-opacity: 0.7;" />
       <TextField fx:id="txtmedical" layoutX="199.0" layoutY="224.0" prefHeight="25.0" prefWidth="320.0" style="-fx-opacity: 0.7;" />
-      <Label layoutX="44.0" layoutY="218.0" prefHeight="31.0" prefWidth="111.0" text="Medical History">
+      <Label layoutX="44.0" layoutY="221.0" prefHeight="31.0" prefWidth="111.0" text="Medical History">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <DatePicker fx:id="birthdatepicker" layoutX="199.0" layoutY="139.0" onAction="#BirthDatePickerOnAction" />
       <TextField fx:id="txtsearch" layoutX="414.0" layoutY="22.0" prefHeight="25.0" prefWidth="192.0" promptText="Search" style="-fx-opacity: 0.7;" />
       <Button layoutX="626.0" layoutY="19.0" mnemonicParsing="false" onAction="#SearchOnAction" prefHeight="31.0" prefWidth="123.0" style="-fx-background-color: #FFB8E0;" text="SEARCH">
          <font>
@@ -112,5 +110,6 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
+      <TextField fx:id="txtage" layoutX="199.0" layoutY="139.0" prefHeight="25.0" prefWidth="320.0" style="-fx-opacity: 0.7;" />
    </children>
 </AnchorPane>

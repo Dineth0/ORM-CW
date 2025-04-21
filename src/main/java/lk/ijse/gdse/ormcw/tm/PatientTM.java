@@ -12,7 +12,7 @@ import java.sql.Date;
 public class PatientTM {
     private String patientId;
     private String name;
-    private Date birthday;
+    private String age;
     private int contactNumber;
     private String medicalHistory;
 

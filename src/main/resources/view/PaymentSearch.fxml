@@ -4,16 +4,15 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane fx:id="PaymentSearchpage" prefHeight="303.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.ormcw.controller.PaymentSearchController">
    <children>
       <TableView fx:id="paymentearchTable" layoutX="4.0" layoutY="1.0" prefHeight="302.0" prefWidth="591.0">
         <columns>
           <TableColumn fx:id="colid" prefWidth="75.0" text="PatientID" />
-          <TableColumn fx:id="colname" prefWidth="121.99996948242188" text="PatientName" />
-            <TableColumn fx:id="colamount" prefWidth="109.3333740234375" text="Amount" />
-            <TableColumn fx:id="coldate" prefWidth="153.99993896484375" text="PaymentDate" />
-            <TableColumn fx:id="colbalance" prefWidth="130.6666259765625" text="Balance" />
+            <TableColumn fx:id="colpayment" prefWidth="109.3333740234375" text="PaymentId" />
+            <TableColumn fx:id="colamount" prefWidth="153.99993896484375" text="Amount" />
+            <TableColumn fx:id="coldate" prefWidth="130.6666259765625" text="PaymentDate" />
+            <TableColumn fx:id="colstatus" prefWidth="130.6666259765625" text="Status" />
         </columns>
       </TableView>
    </children>

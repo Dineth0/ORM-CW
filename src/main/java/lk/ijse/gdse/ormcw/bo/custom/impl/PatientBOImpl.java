@@ -20,7 +20,7 @@ public class PatientBOImpl implements PatientBO {
     public boolean save(PatientDTO patientDTO) throws IOException, SQLException {
         System.out.println("PatientBOImpl Saving ID: " + patientDTO.getPatientId()); // Debugging
 
-        return patientDAO.save(new Patient(patientDTO.getPatientId(),patientDTO.getName(),patientDTO.getBirthday(),patientDTO.getContactNumber(),patientDTO.getMedicalHistory()));
+        return patientDAO.save(new Patient(patientDTO.getPatientId(),patientDTO.getName(),patientDTO.getAge(),patientDTO.getContactNumber(),patientDTO.getMedicalHistory()));
     }
 
     @Override
@@ -37,7 +37,7 @@ public class PatientBOImpl implements PatientBO {
             PatientDTO patientDTO = new PatientDTO();
             patientDTO.setPatientId(patient.getPatientId());
             patientDTO.setName(patient.getName());
-            patientDTO.setBirthday(patient.getBirthday());
+            patientDTO.setAge(patient.getAge());
             patientDTO.setContactNumber(patient.getContactNumber());
             patientDTO.setMedicalHistory(patient.getMedicalHistory());
 
@@ -48,7 +48,7 @@ public class PatientBOImpl implements PatientBO {
 
     @Override
     public boolean update(PatientDTO patientDTO) throws IOException, SQLException {
-        return patientDAO.update(new Patient(patientDTO.getPatientId(),patientDTO.getName(),patientDTO.getBirthday(),patientDTO.getContactNumber(),patientDTO.getMedicalHistory()));
+        return patientDAO.update(new Patient(patientDTO.getPatientId(),patientDTO.getName(),patientDTO.getAge(),patientDTO.getContactNumber(),patientDTO.getMedicalHistory()));
 
     }
 
@@ -60,7 +60,7 @@ public class PatientBOImpl implements PatientBO {
     @Override
     public PatientDTO findById(String patientId) throws SQLException, ClassNotFoundException {
         Patient patient = patientDAO.findById(patientId);
-        return new PatientDTO(patient.getPatientId(), patient.getName(), patient.getBirthday(), patient.getContactNumber(), patient.getMedicalHistory());
+        return new PatientDTO(patient.getPatientId(), patient.getName(), patient.getAge(), patient.getContactNumber(), patient.getMedicalHistory());
     }
 
     @Override

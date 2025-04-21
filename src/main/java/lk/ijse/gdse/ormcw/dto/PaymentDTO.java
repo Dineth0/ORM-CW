@@ -23,4 +23,7 @@ public class PaymentDTO {
         this.paymentDate = Date.valueOf(paymentDate);
         this.Status = status;
     }
+
+    public PaymentDTO(String paymentId, String patientId, double amount, Date paymentDate, String status, Object o) {
+    }
 }

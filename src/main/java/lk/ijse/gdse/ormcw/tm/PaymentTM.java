@@ -10,8 +10,9 @@ import java.sql.Date;
 @NoArgsConstructor
 @Data
 public class PaymentTM {
-    private String paymentId;
+
     private String patientId;
+    private String paymentId;
     private double amount;
     private Date paymentDate;
     private String Status;

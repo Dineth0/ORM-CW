@@ -6,15 +6,13 @@ import lk.ijse.gdse.ormcw.bo.custom.PaymentBO;
 import lk.ijse.gdse.ormcw.bo.custom.TherapySessionBO;
 import lk.ijse.gdse.ormcw.config.FactoryConfiguration;
 import lk.ijse.gdse.ormcw.dao.DAOFactory;
+import lk.ijse.gdse.ormcw.dao.custom.PatientDAO;
 import lk.ijse.gdse.ormcw.dao.custom.PatientRegistrationDAO;
 import lk.ijse.gdse.ormcw.dao.custom.PaymentDAO;
-import lk.ijse.gdse.ormcw.dao.custom.impl.PaymentDAOImpl;
 import lk.ijse.gdse.ormcw.dto.PaymentDTO;
-import lk.ijse.gdse.ormcw.dto.TherapistDTO;
 import lk.ijse.gdse.ormcw.entity.Patient;
 import lk.ijse.gdse.ormcw.entity.Patient_Registration;
 import lk.ijse.gdse.ormcw.entity.Payment;
-import lk.ijse.gdse.ormcw.entity.Therapist;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -29,6 +27,7 @@ public class PaymentBOImpl implements PaymentBO {
     PatientRegistrationBO patientRegistrationBO = (PatientRegistrationBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PATIENT_REGISTRATION);
     TherapySessionBO therapySessionBO = (TherapySessionBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.THERAPY_SESSION);
     PatientRegistrationDAO patientRegistrationDAO = (PatientRegistrationDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.PATIENT_REGISTRATION);
+    PatientDAO patientDAO = (PatientDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.PATIENT);
 
     @Override
     public boolean save(PaymentDTO paymentDTO) throws IOException, SQLException, ClassNotFoundException {
@@ -122,5 +121,16 @@ public class PaymentBOImpl implements PaymentBO {
     @Override
     public boolean delete(String ID) throws SQLException, IOException {
         return paymentDAO.delete(ID);
+    }
+
+    @Override
+    public List<Payment> searchPayment(String name) throws SQLException, IOException, ClassNotFoundException {
+        Patient patient = patientDAO.getPatientByName(name);
+
+        if(patient != null) {
+            return paymentDAO.searchPayment(patient.getPatientId());
+        }else {
+            return null;
+        }
     }
 }

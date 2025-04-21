@@ -36,8 +36,6 @@ public class PatientFormController implements Initializable {
     @FXML
     private TableView<PatientTM> PatientTable;
 
-    @FXML
-    private DatePicker birthdatepicker;
 
     @FXML
     private Button btndelete;
@@ -49,7 +47,7 @@ public class PatientFormController implements Initializable {
     private Button btnupdate;
 
     @FXML
-    private TableColumn<PatientTM, Date> colbirthday;
+    private TableColumn<PatientTM, String> colage;
 
     @FXML
     private TableColumn<PatientTM,Integer> colcontact;
@@ -99,6 +97,9 @@ public class PatientFormController implements Initializable {
     @FXML
     private Button register;
 
+    @FXML
+    private TextField txtage;
+
     PatientBO patientBO = (PatientBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PATIENT);
 
 
@@ -106,7 +107,7 @@ public class PatientFormController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colid.setCellValueFactory(new PropertyValueFactory<>("patientId"));
         colname.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        colbirthday.setCellValueFactory(new PropertyValueFactory<>("Birthday"));
+        colage.setCellValueFactory(new PropertyValueFactory<>("Age"));
         colcontact.setCellValueFactory(new PropertyValueFactory<>("ContactNumber"));
         colmedical.setCellValueFactory(new PropertyValueFactory<>("MedicalHistory"));
 
@@ -125,13 +126,7 @@ public class PatientFormController implements Initializable {
 
     }
 
-    @FXML
-    void BirthDatePickerOnAction(ActionEvent event) {
-        LocalDate localDate = birthdatepicker.getValue();
-        String pattern = "yyyy-MM-dd";
-        String datePattern = localDate.format(DateTimeFormatter.ofPattern(pattern));
-        lblbirthday.setText(datePattern);
-    }
+
 
     @FXML
     void DeleteOnAction(ActionEvent event) throws SQLException, IOException, ClassNotFoundException {
@@ -173,11 +168,11 @@ public class PatientFormController implements Initializable {
     void SaveOnAction(ActionEvent event) {
         String patientId = lblId.getText();
         String name = txtname.getText();
-        String birthday = lblbirthday.getText();
+        String age = txtage.getText();
         int contactNumber = Integer.parseInt(txtcontactnumber.getText());
         String medicalHistory = txtmedical.getText();
 
-        PatientDTO patientDTO = new PatientDTO(patientId, name, birthday, contactNumber, medicalHistory);
+        PatientDTO patientDTO = new PatientDTO(patientId, name, age, contactNumber, medicalHistory);
         try {
             boolean isSaved = patientBO.save( patientDTO);
             if(isSaved){
@@ -207,7 +202,7 @@ public class PatientFormController implements Initializable {
         if (patientTM != null) {
             lblId.setText(patientTM.getPatientId());
             txtname.setText(patientTM.getName());
-            lblbirthday.setText(patientTM.getBirthday().toString());
+            txtage.setText(patientTM.getAge());
             txtcontactnumber.setText(String.valueOf(Integer.valueOf(patientTM.getContactNumber())));
             txtmedical.setText(patientTM.getMedicalHistory());
 
@@ -259,7 +254,7 @@ public class PatientFormController implements Initializable {
             PatientTM patientTM = new PatientTM(
                     patientDTO.getPatientId(),
                     patientDTO.getName(),
-                    patientDTO.getBirthday(),
+                    patientDTO.getAge(),
                     patientDTO.getContactNumber(),
                     patientDTO.getMedicalHistory()
 
@@ -278,7 +273,7 @@ public class PatientFormController implements Initializable {
         btnupdate.setDisable(true);
 
         txtname.setText("");
-        lblbirthday.setText("");
+        txtage.setText("");
         txtcontactnumber.setText("");
         txtmedical.setText("");
 

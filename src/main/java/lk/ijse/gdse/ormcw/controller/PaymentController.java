@@ -4,11 +4,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import lk.ijse.gdse.ormcw.bo.BOFactory;
 import lk.ijse.gdse.ormcw.bo.custom.PatientBO;
 import lk.ijse.gdse.ormcw.bo.custom.PatientRegistrationBO;
@@ -18,7 +24,10 @@ import lk.ijse.gdse.ormcw.dao.custom.PatientRegistrationDAO;
 import lk.ijse.gdse.ormcw.dto.PatientDTO;
 import lk.ijse.gdse.ormcw.dto.PatientRegistrationDTO;
 import lk.ijse.gdse.ormcw.dto.PaymentDTO;
+import lk.ijse.gdse.ormcw.dto.TherapySessionDTO;
 import lk.ijse.gdse.ormcw.entity.Patient_Registration;
+import lk.ijse.gdse.ormcw.entity.Payment;
+import lk.ijse.gdse.ormcw.entity.Therapy_Session;
 import lk.ijse.gdse.ormcw.tm.PatientRegistrationTM;
 import lk.ijse.gdse.ormcw.tm.PaymentTM;
 import net.sf.jasperreports.engine.*;
@@ -99,6 +108,9 @@ public class PaymentController implements Initializable {
 
     @FXML
     private TextField txtsearch;
+
+    @FXML
+    private Button btnsearch;
 
 
 
@@ -333,7 +345,46 @@ public class PaymentController implements Initializable {
 
     @FXML
     void PaymentSearchOnAction(ActionEvent event) {
+        String name = txtsearch.getText();
 
+        try{
+            List<Payment> paymentList = paymentBO.searchPayment(name);
+            ObservableList<PaymentDTO> observableList = FXCollections.observableArrayList();
+
+            for (Payment payment : paymentList) {
+                observableList.add(new PaymentDTO(
+                        payment.getPaymentId(),
+                        payment.getPatient().getPatientId(),
+                        payment.getAmount(),
+                        payment.getPaymentDate(),
+                        payment.getStatus()
+
+                ));
+            }
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PaymentSearch.fxml"));
+            Parent load = loader.load();
+
+            PaymentSearchController paymentSearchController = loader.getController();
+            paymentSearchController.setSessionList(observableList);
+            System.out.println(observableList);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(load));
+            stage.setTitle("Search");
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            Window underWindow = btnsearch.getScene().getWindow();
+            stage.initOwner(underWindow);
+
+            stage.showAndWait();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

@@ -84,4 +84,17 @@ public class PaymentDAOImpl implements PaymentDAO {
 
         return true;
     }
+
+    @Override
+    public List<Payment> searchPayment(String PatientId) throws IOException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        List<Payment> list = session.createQuery("FROM Payment WHERE patient.patientId = :id", Payment.class)
+                .setParameter("id", PatientId)
+                .list();
+        transaction.commit();
+        session.close();
+        return list;
+    }
 }
