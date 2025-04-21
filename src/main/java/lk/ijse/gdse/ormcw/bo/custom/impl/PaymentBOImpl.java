@@ -6,11 +6,13 @@ import lk.ijse.gdse.ormcw.bo.custom.PaymentBO;
 import lk.ijse.gdse.ormcw.bo.custom.TherapySessionBO;
 import lk.ijse.gdse.ormcw.config.FactoryConfiguration;
 import lk.ijse.gdse.ormcw.dao.DAOFactory;
+import lk.ijse.gdse.ormcw.dao.custom.PatientRegistrationDAO;
 import lk.ijse.gdse.ormcw.dao.custom.PaymentDAO;
 import lk.ijse.gdse.ormcw.dao.custom.impl.PaymentDAOImpl;
 import lk.ijse.gdse.ormcw.dto.PaymentDTO;
 import lk.ijse.gdse.ormcw.dto.TherapistDTO;
 import lk.ijse.gdse.ormcw.entity.Patient;
+import lk.ijse.gdse.ormcw.entity.Patient_Registration;
 import lk.ijse.gdse.ormcw.entity.Payment;
 import lk.ijse.gdse.ormcw.entity.Therapist;
 import org.hibernate.Session;
@@ -26,47 +28,53 @@ public class PaymentBOImpl implements PaymentBO {
     PaymentDAO paymentDAO = (PaymentDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.PAYMENT);
     PatientRegistrationBO patientRegistrationBO = (PatientRegistrationBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PATIENT_REGISTRATION);
     TherapySessionBO therapySessionBO = (TherapySessionBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.THERAPY_SESSION);
+    PatientRegistrationDAO patientRegistrationDAO = (PatientRegistrationDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.PATIENT_REGISTRATION);
 
     @Override
     public boolean save(PaymentDTO paymentDTO) throws IOException, SQLException, ClassNotFoundException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
-    try{
-        Patient patient = session.get(Patient.class, paymentDTO.getPatientId());
-        if (patient == null) {
+        try{
+            Patient patient = session.get(Patient.class, paymentDTO.getPatientId());
+            if (patient == null) {
+                return false;
+            }
+            Payment payment = new Payment(
+                    paymentDTO.getPaymentId(),
+                    patient,
+                    paymentDTO.getAmount(),
+                    paymentDTO.getPaymentDate(),
+                    paymentDTO.getStatus()
+            );
+            session.save(payment);
+
+                Patient_Registration patient_registration = patientRegistrationDAO.findById(paymentDTO.getPatientId());
+                if(patient_registration == null) {
+                    transaction.rollback();
+                    return false;
+                }
+                double currentBalance = patient_registration.getBalance();
+                double newBalance = currentBalance - paymentDTO.getAmount();
+                if(newBalance < 0) {
+                    transaction.rollback();
+                    return false;
+                }
+                patient_registration.setBalance(newBalance);
+                session.update(patient_registration);
+
+            transaction.commit();
+            return true;
+
+        }catch (Exception e){
+            transaction.rollback();
+            e.printStackTrace();
             return false;
+        }finally {
+            session.close();
         }
-        Payment payment = new Payment(
-                paymentDTO.getPaymentId(),
-                patient,
-                paymentDTO.getAmount(),
-                paymentDTO.getPaymentDate(),
-                paymentDTO.getStatus()
-        );
-                session.save(payment);
 
-                boolean isupdated = patientRegistrationBO.updateBalance(paymentDTO.getPatientId());
-                if (!isupdated) {
-                    transaction.rollback();
-                    return false;
-                }
-        boolean isStatusUpdated = therapySessionBO.updateStatus(paymentDTO.getPaymentId());
-                if (!isStatusUpdated) {
-                    transaction.rollback();
-                    return false;
-                }
-
-        transaction.commit();
-                return true;
-
-    }catch (Exception e){
-        transaction.rollback();
-        e.printStackTrace();
-        return false;
-    }finally {
-        session.close();
     }
-    }
+
 
     @Override
     public String getNextId() throws SQLException, IOException {

@@ -52,27 +52,11 @@ public class PaymentDAOImpl implements PaymentDAO {
     @Override
     public boolean save(Payment payment) throws SQLException, IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            session.save(payment);
-
-            Query query = session.createQuery("UPDATE Patient_Registration pr SET pr.balance = 0 WHERE pr.patient.patientId = :patientId");
-            query.setParameter("patientId", payment.getPatient().getPatientId());
-            query.executeUpdate();
-            transaction.commit();
-
-            return true;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-                e.printStackTrace();
-                return false;
-            }
-        } finally {
-            session.close();
-        }
-        return false;
+        Transaction transaction = session.beginTransaction();
+        session.save(payment);
+        transaction.commit();
+        session.close();
+        return true;
     }
 
     @Override

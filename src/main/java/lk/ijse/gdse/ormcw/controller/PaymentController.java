@@ -47,6 +47,11 @@ public class PaymentController implements Initializable {
     @FXML
     private Button btnupdate;
 
+
+    @FXML
+    private ComboBox<String> comboStatus;
+    private final String[] Status = {"Payment Completed","Incomplete"};
+
     @FXML
     private TableColumn<PaymentTM,Double> colamount;
 
@@ -92,6 +97,8 @@ public class PaymentController implements Initializable {
     @FXML
     private Label lblbalance;
 
+
+
     PaymentBO paymentBO = (PaymentBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PAYMENT);
     PatientBO patientBO = (PatientBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PATIENT);
     PatientRegistrationBO patientRegistrationBO = (PatientRegistrationBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PATIENT_REGISTRATION);
@@ -99,6 +106,7 @@ public class PaymentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        comboStatus.getItems().addAll(Status);
         colpaymentid.setCellValueFactory(new PropertyValueFactory<>("paymentId"));
         colpatid.setCellValueFactory(new PropertyValueFactory<>("patientId"));
         colamount.setCellValueFactory(new PropertyValueFactory<>("amount"));
@@ -117,6 +125,12 @@ public class PaymentController implements Initializable {
         }
     }
 
+
+    @FXML
+    void StatusComboOnAction(ActionEvent event) {
+        String SelectedValue = comboStatus.getValue();
+        lblstatus.setText(SelectedValue);
+    }
     @FXML
     void ComboPatientIdOnAction(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {
         String selectedID = combopatientid.getValue();
