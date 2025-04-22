@@ -59,7 +59,7 @@ public class PaymentController implements Initializable {
 
     @FXML
     private ComboBox<String> comboStatus;
-    private final String[] Status = {"Payment Completed","Incomplete"};
+    private final String[] Status = {"Payment Completed","Pending"};
 
     @FXML
     private TableColumn<PaymentTM,Double> colamount;
@@ -77,6 +77,9 @@ public class PaymentController implements Initializable {
     private TableColumn<PaymentTM,String> colstatus;
 
     @FXML
+    private TableColumn<PaymentTM,Double> coltotalAmount;
+
+    @FXML
     private ComboBox<String> combopatientid;
 
     @FXML
@@ -87,6 +90,9 @@ public class PaymentController implements Initializable {
 
     @FXML
     private Label lblid;
+
+    @FXML
+    private Label lblregfee;
 
     @FXML
     private Label lblPatientid;
@@ -127,6 +133,8 @@ public class PaymentController implements Initializable {
         colamount.setCellValueFactory(new PropertyValueFactory<>("amount"));
         coldate.setCellValueFactory(new PropertyValueFactory<>("paymentDate"));
         colstatus.setCellValueFactory(new PropertyValueFactory<>("Status"));
+        coltotalAmount.setCellValueFactory(new PropertyValueFactory<>("totalAmount"));
+
 
         try {
             LoadNextID();
@@ -157,6 +165,11 @@ public class PaymentController implements Initializable {
             double balance = patientRegistrationBO.getBalanceByPatientId(selectedID);
             lblbalance.setText(String.format("%.2f", balance));
         }
+        if (selectedID != null) {
+            double regfee = patientRegistrationBO.getRegisterFeeByPatientId(selectedID);
+            lblregfee.setText(String.format("%.2f", regfee));
+        }
+
     }
 
     @FXML
@@ -201,9 +214,14 @@ public class PaymentController implements Initializable {
         String paymentDate = lbldate.getText();
         String Status = lblstatus.getText();
 
+        double regfee = Double.parseDouble(lblregfee.getText());
+
+        double totalAmount = amount + regfee;
+        System.out.println("Amount: " + amount + ", Reg Fee: " + regfee + ", Total Amount: " + totalAmount);
+
         try{
             PaymentDTO paymentDTO = new PaymentDTO(
-                    PaymentId,patientId,amount,paymentDate,Status
+                    PaymentId,patientId,amount,paymentDate,Status,totalAmount
             );
             boolean isRegistered = paymentBO.save(paymentDTO);
 
@@ -247,9 +265,13 @@ public class PaymentController implements Initializable {
         String paymentDate = lbldate.getText();
         String Status = lblstatus.getText();
 
+        double regfee = Double.parseDouble(lblregfee.getText());
+
+        double totalAmount = amount + regfee;
+
         try{
             PaymentDTO paymentDTO = new PaymentDTO(
-                    PaymentId,patientId,amount,paymentDate,Status
+                    PaymentId,patientId,amount,paymentDate,Status,totalAmount
             );
             boolean isRegistered = paymentBO.update(paymentDTO);
 
@@ -282,15 +304,18 @@ public class PaymentController implements Initializable {
 
         for (PaymentDTO paymentDTO : paymentDTOS) {
             PaymentTM paymentTM = new PaymentTM(
-                    paymentDTO.getPaymentId(),
                     paymentDTO.getPatientId(),
+                    paymentDTO.getPaymentId(),
                     paymentDTO.getAmount(),
                     paymentDTO.getPaymentDate(),
-                    paymentDTO.getStatus()
+                    paymentDTO.getStatus(),
+                    paymentDTO.getTotalAmount()
+
             );
             paymentTMS.add(paymentTM);
         }
         PaymentTable.setItems(paymentTMS);
+
     }
     void refreshPage() throws SQLException, ClassNotFoundException, IOException {
         LoadNextID();
@@ -357,7 +382,8 @@ public class PaymentController implements Initializable {
                         payment.getPatient().getPatientId(),
                         payment.getAmount(),
                         payment.getPaymentDate(),
-                        payment.getStatus()
+                        payment.getStatus(),
+                        payment.getTotalAmount()
 
                 ));
             }

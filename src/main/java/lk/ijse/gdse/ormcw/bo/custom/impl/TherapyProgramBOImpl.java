@@ -72,4 +72,9 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
     public boolean delete(String ID) throws SQLException, IOException {
         return therapyProgramDAO.delete(ID);
     }
+
+    @Override
+    public int getTotalPrograms() throws SQLException, ClassNotFoundException, IOException {
+        return therapyProgramDAO.getTotalPrograms();
+    }
 }

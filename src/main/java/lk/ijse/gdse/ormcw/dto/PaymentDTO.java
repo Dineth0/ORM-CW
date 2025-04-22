@@ -15,15 +15,15 @@ public class PaymentDTO {
     private double amount;
     private Date paymentDate;
     private String Status;
+    private double totalAmount;
 
-    public PaymentDTO(String paymentId, String patientId, double amount, String paymentDate, String status) {
+    public PaymentDTO(String paymentId, String patientId, double amount, String paymentDate, String Status,double totalAmount) {
         this.paymentId = paymentId;
         this.patientId = patientId;
         this.amount = amount;
         this.paymentDate = Date.valueOf(paymentDate);
-        this.Status = status;
+        this.Status = Status;
+        this.totalAmount = totalAmount;
     }
 
-    public PaymentDTO(String paymentId, String patientId, double amount, Date paymentDate, String status, Object o) {
-    }
 }

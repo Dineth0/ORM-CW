@@ -11,5 +11,6 @@ import java.util.ArrayList;
 public interface TherapyProgramDAO extends CrudDAO<TherapyProgram> {
     public TherapyProgram findById(String programId) throws SQLException, ClassNotFoundException;
     public ArrayList<String> getAllProgramIDs() throws SQLException, ClassNotFoundException, IOException;
+    public int getTotalPrograms() throws SQLException, ClassNotFoundException, IOException;
 
 }

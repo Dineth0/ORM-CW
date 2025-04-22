@@ -127,6 +127,19 @@ public class PatientRegistrationDAOImpl implements PatientRegistrationDAO {
         session.close();
         return balance != null ? balance : 0.00;
         }
+    @Override
+    public double getRegisterFeeByPatientId(String patientId) throws IOException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        Double balance = session.createQuery("SELECT pr.registerFee FROM Patient_Registration pr WHERE pr.patient.patientId = :patientId", Double.class)
+                .setParameter("patientId", patientId).uniqueResult();
+
+        transaction.commit();
+        session.close();
+        return balance != null ? balance : 0.00;
+    }
+
 
 
 }

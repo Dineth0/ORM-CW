@@ -111,4 +111,9 @@ public class PatientRegistrationBOImpl implements PatientRegistrationBO {
     public double getBalanceByPatientId(String patientId) throws IOException {
         return patientRegistrationDAO.getBalanceByPatientId(patientId);
     }
+
+    @Override
+    public double getRegisterFeeByPatientId(String patientId) throws IOException {
+        return patientRegistrationDAO.getRegisterFeeByPatientId(patientId);
+    }
 }

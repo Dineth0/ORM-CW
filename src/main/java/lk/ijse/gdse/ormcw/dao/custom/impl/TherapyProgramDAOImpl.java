@@ -120,4 +120,16 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
 
         return true;
     }
+    @Override
+    public int getTotalPrograms() throws SQLException, ClassNotFoundException, IOException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        Query<Long> query = session.createQuery("SELECT COUNT(tp) FROM TherapyProgram tp", Long.class);
+        Long total = query.uniqueResult();
+
+        transaction.commit();
+        session.close();
+        return total != null ? total.intValue() : 0;
+    }
 }

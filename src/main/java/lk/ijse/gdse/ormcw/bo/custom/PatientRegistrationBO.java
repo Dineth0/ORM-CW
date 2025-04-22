@@ -16,6 +16,7 @@ public interface PatientRegistrationBO extends SuperBO {
     public boolean delete(String ID) throws SQLException, IOException;
     public boolean updateBalance(String patientId) throws SQLException, ClassNotFoundException, IOException;
     public double getBalanceByPatientId(String patientId) throws IOException;
+    public double getRegisterFeeByPatientId(String patientId) throws IOException;
 
 
     }

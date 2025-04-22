@@ -19,7 +19,7 @@
             <Image url="@images/mental-modified.png" />
          </image>
       </ImageView>
-      <Label layoutX="50.0" layoutY="48.0" prefHeight="31.0" prefWidth="101.0" text="RegistrationID">
+      <Label layoutX="46.0" layoutY="48.0" prefHeight="31.0" prefWidth="101.0" text="RegistrationID">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -83,38 +83,38 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lblpatientid" layoutX="368.0" layoutY="84.0" prefHeight="31.0" prefWidth="225.0" style="-fx-background-color: red;">
+      <Label fx:id="lblpatientid" layoutX="368.0" layoutY="84.0" prefHeight="31.0" prefWidth="225.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lblprogramid" layoutX="368.0" layoutY="126.0" prefHeight="31.0" prefWidth="183.0" style="-fx-background-color: red;">
+      <Label fx:id="lblprogramid" layoutX="368.0" layoutY="126.0" prefHeight="31.0" prefWidth="111.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lbldate" layoutX="384.0" layoutY="169.0" prefHeight="31.0" prefWidth="225.0" style="-fx-background-color: red;">
+      <Label fx:id="lbldate" layoutX="384.0" layoutY="169.0" prefHeight="31.0" prefWidth="225.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="44.0" layoutY="271.0" prefHeight="31.0" prefWidth="123.0" text="Session Count">
+      <Label layoutX="45.0" layoutY="271.0" prefHeight="31.0" prefWidth="123.0" text="Session Count">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lblcount" layoutX="199.0" layoutY="271.0" prefHeight="31.0" prefWidth="320.0" style="-fx-background-color: red;">
+      <Label fx:id="lblcount" layoutX="199.0" layoutY="271.0" prefHeight="31.0" prefWidth="320.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="39.0" layoutY="220.0" prefHeight="31.0" prefWidth="123.0" text="Register fee">
+      <Label layoutX="44.0" layoutY="220.0" prefHeight="31.0" prefWidth="123.0" text="Register fee">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
       <TextField fx:id="txtfee" layoutX="200.0" layoutY="220.0" />
-      <Label fx:id="lblamount" layoutX="568.0" layoutY="125.0" prefHeight="31.0" prefWidth="183.0" style="-fx-background-color: red;">
+      <Label fx:id="lblamount" layoutX="493.0" layoutY="127.0" prefHeight="31.0" prefWidth="183.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

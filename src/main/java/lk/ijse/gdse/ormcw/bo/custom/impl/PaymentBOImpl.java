@@ -43,7 +43,8 @@ public class PaymentBOImpl implements PaymentBO {
                     patient,
                     paymentDTO.getAmount(),
                     paymentDTO.getPaymentDate(),
-                    paymentDTO.getStatus()
+                    paymentDTO.getStatus(),
+                    paymentDTO.getTotalAmount()
             );
             session.save(payment);
 
@@ -96,6 +97,7 @@ public class PaymentBOImpl implements PaymentBO {
             paymentDTO.setAmount(payment.getAmount());
             paymentDTO.setPaymentDate(payment.getPaymentDate());
             paymentDTO.setStatus(payment.getStatus());
+            paymentDTO.setTotalAmount(payment.getTotalAmount());
             paymentDTOS.add(paymentDTO);
         }
         return paymentDTOS;
@@ -114,7 +116,8 @@ public class PaymentBOImpl implements PaymentBO {
                 patient,
                 paymentDTO.getAmount(),
                 paymentDTO.getPaymentDate(),
-                paymentDTO.getStatus()
+                paymentDTO.getStatus(),
+                paymentDTO.getTotalAmount()
         );
         return paymentDAO.update(payment);    }
 

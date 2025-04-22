@@ -26,5 +26,8 @@ public interface TherapyProgramBO extends SuperBO {
 
     public boolean delete(String ID) throws SQLException, IOException;
 
+    public int getTotalPrograms() throws SQLException, ClassNotFoundException, IOException;
 
-}
+
+
+    }
