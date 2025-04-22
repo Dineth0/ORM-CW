@@ -94,6 +94,18 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
         session.close();
         return list;
     }
+    @Override
+    public List<Therapy_Session> getTherapistById(String therapistId) throws SQLException, ClassNotFoundException, IOException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        List<Therapy_Session> list = session.createQuery("FROM Therapy_Session WHERE therapist.therapistId = :therapistId", Therapy_Session.class)
+                .setParameter("therapistId", therapistId)
+                .list();
+        transaction.commit();
+        session.close();
+        return list;
+    }
 
     @Override
     public boolean updateStatus(String sessionId) throws SQLException, ClassNotFoundException, IOException {

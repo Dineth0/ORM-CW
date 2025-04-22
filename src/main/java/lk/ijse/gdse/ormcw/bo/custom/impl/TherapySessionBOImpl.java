@@ -1,9 +1,11 @@
 package lk.ijse.gdse.ormcw.bo.custom.impl;
 
+import lk.ijse.gdse.ormcw.bo.custom.TherapistBO;
 import lk.ijse.gdse.ormcw.bo.custom.TherapySessionBO;
 import lk.ijse.gdse.ormcw.config.FactoryConfiguration;
 import lk.ijse.gdse.ormcw.dao.DAOFactory;
 import lk.ijse.gdse.ormcw.dao.custom.PatientDAO;
+import lk.ijse.gdse.ormcw.dao.custom.TherapistDAO;
 import lk.ijse.gdse.ormcw.dao.custom.TherapySessionDAO;
 import lk.ijse.gdse.ormcw.dto.TherapySessionDTO;
 import lk.ijse.gdse.ormcw.entity.Patient;
@@ -23,6 +25,7 @@ public class TherapySessionBOImpl implements TherapySessionBO {
 
     TherapySessionDAO therapySessionDAO = (TherapySessionDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.THERAPY_SESSION);
     PatientDAO patientDAO = (PatientDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.PATIENT);
+    TherapistDAO therapistDAO = (TherapistDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.THERAPIST);
 
     @Override
     public boolean save(TherapySessionDTO therapySessionDTO) throws IOException, SQLException {
@@ -141,6 +144,16 @@ public class TherapySessionBOImpl implements TherapySessionBO {
 
         if (patient != null) {
             return therapySessionDAO.getSessionByPatientId(patient.getPatientId());
+        }else {
+            return null;
+        }
+    }
+    @Override
+    public List<Therapy_Session> searchTherapistTherapySession(String therapistId) throws SQLException, IOException, ClassNotFoundException {
+
+        Therapist therapist = therapistDAO.getTherapistById(therapistId);
+        if (therapist != null) {
+            return therapySessionDAO.getTherapistById(therapist.getTherapistId());
         }else {
             return null;
         }

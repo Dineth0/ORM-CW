@@ -125,6 +125,13 @@ public class TherapySessionController implements Initializable {
     @FXML
     private TextField txtsearch;
 
+
+    @FXML
+    private TextField txttherapistsearch;
+
+    @FXML
+    private Button btntherapistsearch;
+
     private Stage stage;
     private SearchController searchController;
 
@@ -357,10 +364,27 @@ public class TherapySessionController implements Initializable {
     }
 
     public void SearchOnAction(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
-        String name = txtsearch.getText();
+        String input = txtsearch.getText().trim();
 
-        try{
-            List<Therapy_Session> sessionList = therapySessionBO.searchTherapySession(name);
+        try {
+            List<Therapy_Session> sessionList = null;
+
+            // Therapist ID එකක් නම් ("T" හෝ "T00X" වගේ නම්) පළවෙනි try එක
+            if (input.matches("T\\d+")) {
+                sessionList = therapySessionBO.searchTherapistTherapySession(input);
+            }
+
+            // Therapist ID එකක් නොවෙයි නම් නැත්නම් null ආවොත්, name එකක් ලෙස second try එක
+            if (sessionList == null || sessionList.isEmpty()) {
+                sessionList = therapySessionBO.searchTherapySession(input);
+            }
+
+            // sessions null නම් Alert එකක්
+            if (sessionList == null || sessionList.isEmpty()) {
+                new Alert(Alert.AlertType.INFORMATION, "No sessions found for: " + input).show();
+                return;
+            }
+
             ObservableList<TherapySessionDTO> observableList = FXCollections.observableArrayList();
 
             for (Therapy_Session session : sessionList) {
@@ -374,27 +398,40 @@ public class TherapySessionController implements Initializable {
                         session.getPayment()
                 ));
             }
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Search.fxml"));
+
+            // Therapist ID එකක් නම් TherapistSearch.fxml otherwise Search.fxml
+            String fxmlPath = input.matches("T\\d+")
+                    ? "/view/TherapistSearch.fxml"
+                    : "/view/Search.fxml";
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent load = loader.load();
 
-            SearchController searchController1 = loader.getController();
-            searchController1.setSessionList(observableList);
-            System.out.println(observableList);
+            if (fxmlPath.contains("TherapistSearch")) {
+                TherapistSearchController controller = loader.getController();
+                controller.setSessionList(observableList);
+            } else {
+                SearchController controller = loader.getController();
+                controller.setSessionList(observableList);
+            }
+
             Stage stage = new Stage();
             stage.setScene(new Scene(load));
-            stage.setTitle("Search");
-
+            stage.setTitle("Therapy Session Search");
             stage.initModality(Modality.APPLICATION_MODAL);
-
-            Window underWindow = btnsearch.getScene().getWindow();
-            stage.initOwner(underWindow);
-
+            stage.initOwner(btnsearch.getScene().getWindow());
             stage.showAndWait();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Search failed due to a database error.").show();
         }
     }
+    @FXML
+    void TherapistSearchOnAction(ActionEvent event) {
+
+    }
+
 }
 
 

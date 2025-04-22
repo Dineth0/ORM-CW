@@ -70,5 +70,10 @@ public class TherapistBOImpl implements TherapistBO {
     public boolean delete(String ID) throws SQLException, IOException {
         return therapistDAO.delete(ID);
     }
+
+    @Override
+    public int getTotalTherapists() throws SQLException, ClassNotFoundException, IOException {
+        return therapistDAO.getTotalTherapists();
+    }
 }
 

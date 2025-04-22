@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.ormcw.controller.TherapistSearchController">
+   <children>
+      <TableView fx:id="ThearapistSearchTable" prefHeight="400.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="coltherapist" prefWidth="107.33331298828125" text="TherapistId" />
+          <TableColumn fx:id="colpatient" prefWidth="83.33334350585938" text="PatientId" />
+            <TableColumn fx:id="coldate" prefWidth="123.99996948242188" text="SessionDate" />
+            <TableColumn fx:id="coltime" prefWidth="130.0" text="SessionTime" />
+            <TableColumn fx:id="colstatus" prefWidth="155.33331298828125" text="Status" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

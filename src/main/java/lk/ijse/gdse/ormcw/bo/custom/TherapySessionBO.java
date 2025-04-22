@@ -17,6 +17,7 @@ public interface TherapySessionBO extends SuperBO {
     public boolean delete(String ID) throws SQLException, IOException;
     public boolean updateStatus(String sessionId) throws SQLException, ClassNotFoundException, IOException;
     public List<Therapy_Session> searchTherapySession(String name) throws SQLException, IOException, ClassNotFoundException;
+    public List<Therapy_Session> searchTherapistTherapySession(String therapistId) throws SQLException, IOException, ClassNotFoundException;
 
 
 

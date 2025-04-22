@@ -117,4 +117,27 @@ public class TherapistDAOImpl implements TherapistDAO {
         session.close();
         return list;
     }
+    @Override
+    public int getTotalTherapists() throws SQLException, ClassNotFoundException, IOException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        Query<Long> query = session.createQuery("SELECT COUNT(t) FROM Therapist t", Long.class);
+        Long total = query.uniqueResult();
+
+        transaction.commit();
+        session.close();
+        return total != null ? total.intValue() : 0;
+    }
+    @Override
+    public Therapist getTherapistById(String therapistId) throws SQLException, ClassNotFoundException, IOException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        Therapist therapist = session.createQuery("FROM Therapist WHERE therapistId = :therapistId",Therapist.class)
+                .setParameter("therapistId", therapistId).uniqueResult();
+        transaction.commit();
+        session.close();
+        return therapist;
+    }
 }
