@@ -3,6 +3,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -71,6 +73,13 @@ public class ReceptionistDashboardController implements Initializable {
                 AnchorPane userpage = FXMLLoader.load(getClass().getResource("/view/UserForm.fxml"));
                 recipAncBody.getChildren().clear();
                 recipAncBody.getChildren().add(userpage);
+        }
+        @FXML
+        void LogOutOnAction(ActionEvent event) throws IOException {
+                AnchorPane load = FXMLLoader.load(getClass().getResource("/view/LoginForm.fxml"));
+                recipDashboard.getChildren().clear();
+                recipDashboard.getChildren().add(load);
+
         }
 
 }

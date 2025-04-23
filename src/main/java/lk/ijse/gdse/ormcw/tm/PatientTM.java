@@ -12,8 +12,9 @@ import java.sql.Date;
 public class PatientTM {
     private String patientId;
     private String name;
-    private String age;
+    private int age;
     private int contactNumber;
     private String medicalHistory;
+
 
 }

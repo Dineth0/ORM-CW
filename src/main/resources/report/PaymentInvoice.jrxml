@@ -4,45 +4,62 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (26)"/>
 	<parameter name="P_paymentId" class="java.lang.String"/>
 	<query language="SQL"><![CDATA[SELECT 
-    p.paymentId, 
     pt.name, 
-    ts.sessionId, 
+    pt.age,
+    pt.contactNumber,
     ts.sessionDate, 
+    ts.sessionTime,
     p.amount, 
+    p.totalAmount,
     p.paymentDate, 
-    p.status
+    p.status,
+    t.therapistName,
+    t.specialization
 FROM 
     Payment p 
 JOIN 
     Patient pt ON p.patientId = pt.patientId 
 JOIN 
     Therapy_Session ts ON ts.patientId = pt.patientId 
+JOIN 
+    Therapist t ON ts.therapistId = t.therapistId
 WHERE 
-    p.paymentId =$P{P_paymentId}
+    p.paymentId = $P{P_paymentId}
+
 ]]></query>
-	<field name="paymentId" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="paymentId"/>
-		<property name="com.jaspersoft.studio.field.label" value="paymentId"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
-	</field>
 	<field name="name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="name"/>
 		<property name="com.jaspersoft.studio.field.label" value="name"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="patient"/>
 	</field>
-	<field name="sessionId" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="sessionId"/>
-		<property name="com.jaspersoft.studio.field.label" value="sessionId"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="therapy_session"/>
+	<field name="age" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="age"/>
+		<property name="com.jaspersoft.studio.field.label" value="age"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="patient"/>
+	</field>
+	<field name="contactNumber" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="contactNumber"/>
+		<property name="com.jaspersoft.studio.field.label" value="contactNumber"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="patient"/>
 	</field>
 	<field name="sessionDate" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.name" value="sessionDate"/>
 		<property name="com.jaspersoft.studio.field.label" value="sessionDate"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="therapy_session"/>
 	</field>
+	<field name="sessionTime" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sessionTime"/>
+		<property name="com.jaspersoft.studio.field.label" value="sessionTime"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="therapy_session"/>
+	</field>
 	<field name="amount" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.name" value="amount"/>
 		<property name="com.jaspersoft.studio.field.label" value="amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
+	</field>
+	<field name="totalAmount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="totalAmount"/>
+		<property name="com.jaspersoft.studio.field.label" value="totalAmount"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
 	</field>
 	<field name="paymentDate" class="java.sql.Date">
@@ -55,53 +72,87 @@ WHERE
 		<property name="com.jaspersoft.studio.field.label" value="status"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
 	</field>
+	<field name="therapistName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="therapistName"/>
+		<property name="com.jaspersoft.studio.field.label" value="therapistName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="therapist"/>
+	</field>
+	<field name="specialization" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="specialization"/>
+		<property name="com.jaspersoft.studio.field.label" value="specialization"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="therapist"/>
+	</field>
 	<background splitType="Stretch"/>
-	<title height="79" splitType="Stretch">
-		<element kind="staticText" uuid="dcf7c5f9-2e82-4556-8a69-81a844acdcc8" x="140" y="0" width="276" height="49" fontSize="26.0" bold="true" italic="true" hTextAlign="Center">
+	<title height="55" splitType="Stretch">
+		<element kind="staticText" uuid="dcf7c5f9-2e82-4556-8a69-81a844acdcc8" x="140" y="0" width="276" height="49" fontSize="22.0" bold="true" italic="true" hTextAlign="Center">
 			<text><![CDATA[Payment Invoice]]></text>
 		</element>
 	</title>
-	<pageHeader height="339" splitType="Stretch">
-		<element kind="staticText" uuid="8fe2d1a3-86a8-4209-a959-4e5c3fab4e33" x="20" y="10" width="140" height="30" fontSize="16.0" bold="true">
-			<text><![CDATA[Patient ID     :]]></text>
-		</element>
-		<element kind="staticText" uuid="2746548f-a42b-4c5d-9d0f-f344064c247f" x="20" y="50" width="140" height="30" fontSize="16.0" bold="true">
+	<pageHeader height="432" splitType="Stretch">
+		<element kind="staticText" uuid="2746548f-a42b-4c5d-9d0f-f344064c247f" x="319" y="21" width="110" height="20" fontSize="12.0" bold="true">
 			<text><![CDATA[Patient Name     :]]></text>
 		</element>
-		<element kind="staticText" uuid="86ad9350-3019-49a5-95a2-eefc1ff6dd17" x="20" y="90" width="140" height="30" fontSize="16.0" bold="true">
-			<text><![CDATA[Session ID     :]]></text>
-		</element>
-		<element kind="staticText" uuid="b36d515b-a58c-45cf-99c2-af9772b571d4" x="20" y="130" width="140" height="30" fontSize="16.0" bold="true">
+		<element kind="staticText" uuid="b36d515b-a58c-45cf-99c2-af9772b571d4" x="1" y="20" width="110" height="20" fontSize="12.0" bold="true">
 			<text><![CDATA[Session Date     :]]></text>
 		</element>
-		<element kind="staticText" uuid="f92f43a4-0ae9-4efb-a528-28acae8693b4" x="20" y="170" width="140" height="30" fontSize="16.0" bold="true">
+		<element kind="staticText" uuid="f92f43a4-0ae9-4efb-a528-28acae8693b4" x="188" y="160" width="92" height="20" fontSize="12.0" bold="true">
 			<text><![CDATA[Amount     :]]></text>
 		</element>
-		<element kind="staticText" uuid="724ccba4-8aca-4f74-903b-1d8ee85dc843" x="20" y="210" width="140" height="30" fontSize="16.0" bold="true">
-			<text><![CDATA[Payment Date     :]]></text>
+		<element kind="staticText" uuid="724ccba4-8aca-4f74-903b-1d8ee85dc843" x="188" y="220" width="92" height="20" fontSize="12.0" bold="true">
+			<text><![CDATA[Payment Date  :]]></text>
 		</element>
-		<element kind="staticText" uuid="64473f5f-0e1e-4f33-b99c-72959bb0c932" x="20" y="250" width="140" height="30" fontSize="16.0" bold="true">
-			<text><![CDATA[Status     :]]></text>
+		<element kind="staticText" uuid="64473f5f-0e1e-4f33-b99c-72959bb0c932" x="189" y="250" width="90" height="20" fontSize="12.0" bold="true">
+			<text><![CDATA[Full Fee   :]]></text>
 		</element>
-		<element kind="textField" uuid="065917fe-81bc-4c90-a948-c719a9e00e7a" x="210" y="10" width="81" height="30">
-			<expression><![CDATA[$F{paymentId}]]></expression>
+		<element kind="staticText" uuid="411d1d64-7f20-45fe-9f58-02b2e73c2e99" x="1" y="49" width="120" height="21" fontSize="12.0" bold="true">
+			<text><![CDATA[Therapist Name     :]]></text>
 		</element>
-		<element kind="textField" uuid="4929f9c0-aca1-4112-8383-1a0cf8fcb27e" x="210" y="60" width="79" height="30">
-			<expression><![CDATA[$F{name}]]></expression>
+		<element kind="staticText" uuid="9559d5c2-ff77-484a-8b8f-5d3631dbf056" x="1" y="81" width="120" height="19" fontSize="12.0" bold="true">
+			<text><![CDATA[Specialization     :]]></text>
 		</element>
-		<element kind="textField" uuid="2658c4af-b624-4307-b7fc-1d5969ba8871" x="210" y="100" width="79" height="30">
-			<expression><![CDATA[$F{sessionId}]]></expression>
+		<element kind="staticText" uuid="ab09c222-f632-46d1-8628-58b23fd74afe" x="1" y="111" width="120" height="19" fontSize="12.0" bold="true">
+			<text><![CDATA[Session Time     :]]></text>
 		</element>
-		<element kind="textField" uuid="07dba1e5-a861-4326-a67f-a977270e9eba" x="210" y="135" width="150" height="30">
+		<element kind="textField" uuid="1f7b4c57-810e-4aae-b538-54e7cf734df9" x="133" y="22" width="127" height="18">
 			<expression><![CDATA[$F{sessionDate}]]></expression>
 		</element>
-		<element kind="textField" uuid="d5152cb0-199e-49bd-86c6-6ab9d32527cd" x="210" y="170" width="79" height="30">
+		<element kind="textField" uuid="1c2743fd-acfb-46ff-ba57-d11ae7012814" x="133" y="52" width="127" height="14">
+			<expression><![CDATA[$F{therapistName}]]></expression>
+		</element>
+		<element kind="textField" uuid="bba4bbcd-37d3-4e42-9453-d95a7624bf61" x="133" y="83" width="127" height="16">
+			<expression><![CDATA[$F{specialization}]]></expression>
+		</element>
+		<element kind="textField" uuid="5fd38183-57d8-48f5-a1d7-97fbc9c8ef77" x="133" y="112" width="127" height="15">
+			<expression><![CDATA[$F{sessionTime}]]></expression>
+		</element>
+		<element kind="staticText" uuid="9498ca17-8fd9-4451-880a-d013bd38a287" x="319" y="50" width="110" height="20" fontSize="12.0" bold="true">
+			<text><![CDATA[Patient Age     :]]></text>
+		</element>
+		<element kind="staticText" uuid="462bd3c5-701a-448d-b004-5084ba43a982" x="320" y="82" width="110" height="20" fontSize="12.0" bold="true">
+			<text><![CDATA[Contact Number  :]]></text>
+		</element>
+		<element kind="textField" uuid="b402a8e7-274b-4e43-ba03-5f5696f68662" x="440" y="22" width="100" height="16">
+			<expression><![CDATA[$F{name}]]></expression>
+		</element>
+		<element kind="textField" uuid="4157faba-7c62-407f-9861-64e8c80b0b28" x="440" y="49" width="100" height="20">
+			<expression><![CDATA[$F{age}]]></expression>
+		</element>
+		<element kind="textField" uuid="4060998b-8b9e-471f-b519-ca4c26187414" x="440" y="82" width="100" height="20">
+			<expression><![CDATA[$F{contactNumber}]]></expression>
+		</element>
+		<element kind="staticText" uuid="ecdf5267-b738-49d8-97bb-2420d6cfdab0" x="188" y="190" width="92" height="20" fontSize="12.0" bold="true">
+			<text><![CDATA[Total Fee     :]]></text>
+		</element>
+		<element kind="textField" uuid="804f6686-8053-438b-a5fd-3f878d65469f" x="300" y="160" width="100" height="20">
 			<expression><![CDATA[$F{amount}]]></expression>
 		</element>
-		<element kind="textField" uuid="0625126e-8066-4a32-b9d1-c27e41e41283" x="210" y="210" width="150" height="30">
+		<element kind="textField" uuid="82eaf78e-8aee-4934-a4bd-3d9c4d9a68b5" x="300" y="190" width="100" height="21">
+			<expression><![CDATA[$F{totalAmount}]]></expression>
+		</element>
+		<element kind="textField" uuid="4258ce99-2ad5-4adb-85d0-2b941646dd1a" x="300" y="220" width="100" height="20">
 			<expression><![CDATA[$F{paymentDate}]]></expression>
 		</element>
-		<element kind="textField" uuid="ccb53fbe-3564-4d59-bcba-700df26a3906" x="210" y="250" width="79" height="30">
+		<element kind="textField" uuid="9f441136-9ffb-49ce-b751-b155baebc0dd" x="300" y="252" width="100" height="17">
 			<expression><![CDATA[$F{status}]]></expression>
 		</element>
 	</pageHeader>

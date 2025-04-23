@@ -12,5 +12,5 @@ public class TherapyProgramTM {
     private String programName;
     private String duration;
     private double cost;
-    private String Description;
+
 }

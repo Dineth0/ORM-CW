@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -20,6 +21,7 @@ import lk.ijse.gdse.ormcw.bo.custom.PatientBO;
 import lk.ijse.gdse.ormcw.dto.PatientDTO;
 import lk.ijse.gdse.ormcw.tm.PatientTM;
 import lk.ijse.gdse.ormcw.tm.UserTM;
+import lk.ijse.gdse.ormcw.util.Regex;
 
 import java.io.IOException;
 import java.net.URL;
@@ -47,7 +49,7 @@ public class PatientFormController implements Initializable {
     private Button btnupdate;
 
     @FXML
-    private TableColumn<PatientTM, String> colage;
+    private TableColumn<PatientTM, Integer> colage;
 
     @FXML
     private TableColumn<PatientTM,Integer> colcontact;
@@ -165,29 +167,29 @@ public class PatientFormController implements Initializable {
     }
 
     @FXML
-    void SaveOnAction(ActionEvent event) {
+    void SaveOnAction(ActionEvent event) throws ClassNotFoundException {
         String patientId = lblId.getText();
         String name = txtname.getText();
-        String age = txtage.getText();
+        int age = Integer.parseInt(txtage.getText());
         int contactNumber = Integer.parseInt(txtcontactnumber.getText());
         String medicalHistory = txtmedical.getText();
 
         PatientDTO patientDTO = new PatientDTO(patientId, name, age, contactNumber, medicalHistory);
-        try {
-            boolean isSaved = patientBO.save( patientDTO);
-            if(isSaved){
-                new Alert(Alert.AlertType.INFORMATION,"User Saved SUCCESSFULLY 😎").show();
-                refreshPage();
+        if(isValid()) {
+            try {
+
+                boolean isSaved = patientBO.save(patientDTO);
+                if (isSaved) {
+                    new Alert(Alert.AlertType.INFORMATION, "User Saved SUCCESSFULLY 😎").show();
+                    refreshPage();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
+                }
+            } catch (IOException e) {
+                new Alert(Alert.AlertType.ERROR, "duplicate Id");
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-            else {
-                new Alert(Alert.AlertType.ERROR,"PLEASE TRY AGAIN 😥").show();
-            }
-        } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR,"duplicate Id");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -202,7 +204,7 @@ public class PatientFormController implements Initializable {
         if (patientTM != null) {
             lblId.setText(patientTM.getPatientId());
             txtname.setText(patientTM.getName());
-            txtage.setText(patientTM.getAge());
+            txtage.setText(String.valueOf(patientTM.getAge()));
             txtcontactnumber.setText(String.valueOf(Integer.valueOf(patientTM.getContactNumber())));
             txtmedical.setText(patientTM.getMedicalHistory());
 
@@ -218,28 +220,30 @@ public class PatientFormController implements Initializable {
     void UpdateOnAction(ActionEvent event) {
         String patientId = lblId.getText();
         String name = txtname.getText();
-        String birthday = lblbirthday.getText();
+        int age = Integer.parseInt(txtage.getText());
+
         int contactNumber = Integer.parseInt(txtcontactnumber.getText());
         String medicalHistory = txtmedical.getText();
 
 
-        PatientDTO patientDTO = new PatientDTO(patientId, name, birthday, contactNumber, medicalHistory);
-        try {
-            boolean isUpdated = patientBO.update( patientDTO);
-            if(isUpdated){
-                refreshPage();
-                new Alert(Alert.AlertType.INFORMATION,"User Saved SUCCESSFULLY 😎").show();
+        PatientDTO patientDTO = new PatientDTO(patientId, name,age, contactNumber, medicalHistory);
+        if(isValid()) {
+            try {
+                boolean isUpdated = patientBO.update(patientDTO);
+                if (isUpdated) {
+                    refreshPage();
+                    new Alert(Alert.AlertType.INFORMATION, "User Saved SUCCESSFULLY 😎").show();
 
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
+                }
+            } catch (IOException e) {
+                new Alert(Alert.AlertType.ERROR, "duplicate Id");
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
-            else {
-                new Alert(Alert.AlertType.ERROR,"PLEASE TRY AGAIN 😥").show();
-            }
-        } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR,"duplicate Id");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
     }
     private void LoadNextID() throws SQLException, IOException {
@@ -292,6 +296,28 @@ public class PatientFormController implements Initializable {
         stage.initOwner(underWindow);
 
         stage.showAndWait();
+    }
+    @FXML
+    void txtAgeKeyReleased(KeyEvent event) {
+        Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.AGE, txtage);
+    }
+
+    @FXML
+    void txtContactKeyReleased(KeyEvent event) {
+        Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.TEL,txtcontactnumber);
+    }
+
+
+    @FXML
+    void txtNameKeyReleased(KeyEvent event) {
+        Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.NAME, txtname);
+    }
+    public boolean isValid(){
+        if(!Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.AGE, txtage)) return false;
+        if(!Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.TEL, txtcontactnumber)) return false;
+        if(!Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.NAME, txtname)) return false;
+
+        return true;
     }
 
 }

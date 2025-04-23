@@ -80,5 +80,11 @@ public class AdminDashboardController implements Initializable {
         ancBody.getChildren().clear();
         ancBody.getChildren().add(userpage);
     }
+    @FXML
+    void LogOutOnAction(ActionEvent event) throws IOException {
+        AnchorPane load = FXMLLoader.load(getClass().getResource("/view/LoginForm.fxml"));
+        AdminDashboard.getChildren().clear();
+        AdminDashboard.getChildren().add(load);
+    }
 
 }

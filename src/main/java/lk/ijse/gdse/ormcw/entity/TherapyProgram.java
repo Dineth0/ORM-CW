@@ -19,18 +19,22 @@ public class TherapyProgram implements SuperEntity{
     private String programName;
     private String duration;
     private double cost;
-    private String Description;
+
 
     @OneToMany(mappedBy = "therapyProgram", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Patient_Registration> patientRegistrations;
 
-    public TherapyProgram(String programId, String programName, String duration, double cost, String Description) {
+    @OneToMany(mappedBy = "therapyProgram", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Therapist> therapist;
+
+    public TherapyProgram(String programId, String programName, String duration, double cost) {
         this.programId = programId;
         this.programName = programName;
         this.duration = duration;
         this.cost = cost;
-        this.Description = Description;
+
     }
+
 
 
 }

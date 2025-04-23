@@ -20,7 +20,7 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
     @Override
     public TherapyProgramDTO findById(String programId) throws SQLException, ClassNotFoundException {
         TherapyProgram therapyProgram = therapyProgramDAO.findById(programId);
-        return new TherapyProgramDTO(therapyProgram.getProgramId(),therapyProgram.getProgramName(),therapyProgram.getDuration(),therapyProgram.getCost(),therapyProgram.getDescription());
+        return new TherapyProgramDTO(therapyProgram.getProgramId(),therapyProgram.getProgramName(),therapyProgram.getDuration(),therapyProgram.getCost());
     }
 
     @Override
@@ -51,7 +51,6 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
             therapyProgramDTO.setProgramName(therapyProgram.getProgramName());
             therapyProgramDTO.setDuration(therapyProgram.getDuration());
             therapyProgramDTO.setCost(therapyProgram.getCost());
-            therapyProgramDTO.setDescription(therapyProgram.getDescription());
             therapyProgramDTOS.add(therapyProgramDTO);
         }
         return therapyProgramDTOS;
@@ -59,12 +58,12 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
 
     @Override
     public boolean save(TherapyProgramDTO therapyProgramDTO) throws SQLException, IOException {
-        return therapyProgramDAO.save(new TherapyProgram(therapyProgramDTO.getProgramId(),therapyProgramDTO.getProgramName(),therapyProgramDTO.getDuration(),therapyProgramDTO.getCost(),therapyProgramDTO.getDescription()));
+        return therapyProgramDAO.save(new TherapyProgram(therapyProgramDTO.getProgramId(),therapyProgramDTO.getProgramName(),therapyProgramDTO.getDuration(),therapyProgramDTO.getCost()));
     }
 
     @Override
     public boolean update(TherapyProgramDTO therapyProgramDTO) throws SQLException, IOException {
-        return therapyProgramDAO.update(new TherapyProgram(therapyProgramDTO.getProgramId(),therapyProgramDTO.getProgramName(),therapyProgramDTO.getDuration(),therapyProgramDTO.getCost(),therapyProgramDTO.getDescription()));
+        return therapyProgramDAO.update(new TherapyProgram(therapyProgramDTO.getProgramId(),therapyProgramDTO.getProgramName(),therapyProgramDTO.getDuration(),therapyProgramDTO.getCost()));
 
     }
 

@@ -37,7 +37,7 @@ public class PatientBOImpl implements PatientBO {
             PatientDTO patientDTO = new PatientDTO();
             patientDTO.setPatientId(patient.getPatientId());
             patientDTO.setName(patient.getName());
-            patientDTO.setAge(patient.getAge());
+            patientDTO.setAge(Integer.parseInt(String.valueOf(patient.getAge())));
             patientDTO.setContactNumber(patient.getContactNumber());
             patientDTO.setMedicalHistory(patient.getMedicalHistory());
 

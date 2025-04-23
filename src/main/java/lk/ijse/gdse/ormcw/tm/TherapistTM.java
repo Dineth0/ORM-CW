@@ -11,5 +11,6 @@ public class TherapistTM {
     private String therapistId;
     private String therapistName;
     private String specialization;
-    private String availability;
+    private int contactNumber;
+    private String programId;
 }

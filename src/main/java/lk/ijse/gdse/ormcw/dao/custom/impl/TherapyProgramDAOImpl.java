@@ -56,13 +56,13 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
         session.close();
 
         if (lastId != null) {
-            String substring = lastId.substring(1);
+            String substring = lastId.substring(3);
             int i = Integer.parseInt(substring);
             int newIdIndex = i + 1;
-            return String.format("G%03d", newIdIndex);
+            return String.format("MT1%03d", newIdIndex);
         }
 
-        return "G001";
+        return "MT1001";
     }
 
     @Override

@@ -126,13 +126,6 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
 
-        Therapist therapist = session.get(Therapist.class, therapy_session.getSessionId());
-        Patient patient = session.get(Patient.class, therapy_session.getSessionId());
-
-        if(therapist == null || patient==null){
-            return false;
-        }
-
         session.update(therapy_session);
 
         transaction.commit();

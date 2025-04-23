@@ -1,8 +1,6 @@
 package lk.ijse.gdse.ormcw.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @AllArgsConstructor
@@ -17,5 +15,11 @@ public class Therapist implements SuperEntity{
     private String therapistId;
     private String therapistName;
     private String specialization;
-    private String availability;
+    private int contactNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "programId")
+    private TherapyProgram therapyProgram;
+
+
 }

@@ -12,14 +12,14 @@ public class TherapyProgramDTO {
     private String programName;
     private String duration;
     private double cost;
-    private String Description;
 
-    public TherapyProgramDTO(String programId, String programName, String duration, double cost, String Description) {
+
+    public TherapyProgramDTO(String programId, String programName, String duration, double cost) {
         this.programId = programId;
         this.programName = programName;
         this.duration = duration;
         this.cost = cost;
-        this.Description = Description;
     }
+
 
 }

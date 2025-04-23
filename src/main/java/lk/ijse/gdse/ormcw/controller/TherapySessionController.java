@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -25,6 +26,7 @@ import lk.ijse.gdse.ormcw.dto.TherapySessionDTO;
 import lk.ijse.gdse.ormcw.entity.Therapy_Session;
 import lk.ijse.gdse.ormcw.tm.TherapistTM;
 import lk.ijse.gdse.ormcw.tm.TherapySessionTM;
+import lk.ijse.gdse.ormcw.util.Regex;
 
 import java.io.IOException;
 import java.net.URL;
@@ -233,12 +235,10 @@ public class TherapySessionController implements Initializable {
         String payment = combopayment.getValue();
 
         try {
-            // TherapySessionDTO object එක සෑදීම
             TherapySessionDTO therapySessionDTO = new TherapySessionDTO(
                     sessionId, sessionDate, sessionTime, status, therapistId, patientId,payment
             );
 
-            // Business logic layer එකේ save method එකට call කරනවා
             boolean isRegistered = therapySessionBO.save(therapySessionDTO);
 
             if (isRegistered) {
@@ -264,7 +264,7 @@ public class TherapySessionController implements Initializable {
             lblid.setText(therapySessionTM.getSessionId());
             lbldate.setText(String.valueOf(therapySessionTM.getSessionDate()));
             txttime.setText(therapySessionTM.getSessionTime());
-            lblstatus.setText(therapySessionTM.getStatus());
+            combostatus.setValue(therapySessionTM.getStatus());
             combopatientid.setValue(therapySessionTM.getPatientId());
             combotherapistId.setValue(therapySessionTM.getTherapistId());
             combopayment.setValue(therapySessionTM.getPayment());
@@ -292,12 +292,10 @@ public class TherapySessionController implements Initializable {
 
 
         try {
-            // TherapySessionDTO object එක සෑදීම
             TherapySessionDTO therapySessionDTO = new TherapySessionDTO(
                     sessionId, sessionDate, sessionTime, status, therapistId, patientId, payment
             );
 
-            // Business logic layer එකේ save method එකට call කරනවා
             boolean isRegistered = therapySessionBO.update(therapySessionDTO);
 
             if (isRegistered) {
@@ -429,6 +427,11 @@ public class TherapySessionController implements Initializable {
     }
     @FXML
     void TherapistSearchOnAction(ActionEvent event) {
+
+    }
+    @FXML
+    void txtTimeKeyReleasedOnAction(KeyEvent event) {
+        Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.TIME,txttime);
 
     }
 

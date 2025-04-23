@@ -55,11 +55,10 @@
       </Button>
       <TableView fx:id="ProgramTable" layoutX="14.0" layoutY="363.0" onMouseClicked="#TableOnClicked" prefHeight="258.0" prefWidth="762.0" style="-fx-opacity: 0.9;">
          <columns>
-            <TableColumn fx:id="colid" prefWidth="75.0" text="ProgramID" />
-            <TableColumn fx:id="colname" prefWidth="251.3333511352539" text="ProgramName" />
-            <TableColumn fx:id="colduration" prefWidth="122.0" text="Duration" />
-            <TableColumn fx:id="colfee" prefWidth="127.33328247070312" text="Fee (LKR)" />
-            <TableColumn fx:id="coldes" prefWidth="184.0" text="Desceiption" />
+            <TableColumn fx:id="colid" prefWidth="98.00000286102295" text="ProgramID" />
+            <TableColumn fx:id="colname" prefWidth="315.9999771118164" text="ProgramName" />
+            <TableColumn fx:id="colduration" prefWidth="158.66665649414062" text="Duration" />
+            <TableColumn fx:id="colfee" prefWidth="187.3333740234375" text="Fee (LKR)" />
          </columns>
       </TableView>
       <Label fx:id="lblid" layoutX="199.0" layoutY="48.0" prefHeight="31.0" prefWidth="320.0" text="1">
@@ -89,11 +88,5 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="42.0" layoutY="264.0" prefHeight="31.0" prefWidth="111.0" text="Description">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <TextField fx:id="txtdes" layoutX="199.0" layoutY="267.0" prefHeight="25.0" prefWidth="320.0" style="-fx-opacity: 0.7;" />
    </children>
 </AnchorPane>

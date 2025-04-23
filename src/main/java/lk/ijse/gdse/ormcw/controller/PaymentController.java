@@ -248,12 +248,12 @@ public class PaymentController implements Initializable {
             combopatientid.setValue(paymentTM.getPatientId());
             txtamount.setText(String.valueOf(paymentTM.getAmount()));
             lbldate.setText(String.valueOf(paymentTM.getPaymentDate()));
+            comboStatus.setValue(paymentTM.getStatus());
 
 
 
-            btndelete.setDisable(false);
             btnsave.setDisable(true);
-            btnupdate.setDisable(false);
+
         }
     }
 
@@ -321,13 +321,15 @@ public class PaymentController implements Initializable {
         LoadNextID();
         loadTableData();
 
-        btndelete.setDisable(true);
+        //btndelete.setDisable(true);
         btnsave.setDisable(false);
-        btnupdate.setDisable(true);
+        //btnupdate.setDisable(true);
 
         lblPatientid.setText("");
         txtamount.setText("");
         lbldate.setText("");
+        comboStatus.setValue("");
+        combopatientid.setValue("");
 
 
     }

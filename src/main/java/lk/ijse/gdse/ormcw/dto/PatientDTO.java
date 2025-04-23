@@ -12,10 +12,9 @@ import java.sql.Date;
 public class PatientDTO {
     private String patientId;
     private String name;
-    private String age;
+    private int age;
     private int contactNumber;
     private String medicalHistory;
-
 
 
 

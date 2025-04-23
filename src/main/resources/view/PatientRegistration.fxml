@@ -29,22 +29,12 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="btnsave" layoutX="59.0" layoutY="314.0" mnemonicParsing="false" onAction="#SaveOnAction" prefHeight="31.0" prefWidth="123.0" style="-fx-background-color: #FFB8E0;" text="SAVE">
+      <Button fx:id="btnsave" layoutX="260.0" layoutY="315.0" mnemonicParsing="false" onAction="#SaveOnAction" prefHeight="31.0" prefWidth="123.0" style="-fx-background-color: #FFB8E0;" text="SAVE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btnupdate" layoutX="245.0" layoutY="314.0" mnemonicParsing="false" onAction="#UpdateOnAction" prefHeight="31.0" prefWidth="123.0" style="-fx-background-color: #FFB8E0;" text="UPDATE">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="btndelete" layoutX="428.0" layoutY="311.0" mnemonicParsing="false" onAction="#DeleteOnAction" prefHeight="31.0" prefWidth="123.0" style="-fx-background-color: #FFB8E0;" text="DELETE">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button layoutX="610.0" layoutY="312.0" mnemonicParsing="false" onAction="#ResetOnAction" prefHeight="31.0" prefWidth="123.0" style="-fx-background-color: #FFB8E0;" text="RESET">
+      <Button layoutX="431.0" layoutY="317.0" mnemonicParsing="false" onAction="#ResetOnAction" prefHeight="31.0" prefWidth="123.0" style="-fx-background-color: #FFB8E0;" text="RESET">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -65,7 +55,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="65.0" layoutY="318.0">
+      <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="274.0" layoutY="320.0">
          <image>
             <Image url="@images/save.png" />
          </image>

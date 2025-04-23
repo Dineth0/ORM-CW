@@ -11,8 +11,16 @@ public class TherapistDTO {
     private String therapistId;
     private String therapistName;
     private String specialization;
-    private String availability;
+    private int contactNumber;
+    private String programId;
 
 
 
+    public TherapistDTO(String therapistId, String therapistName, String specialization, String contactNumber, String programId) {
+        this.therapistId = therapistId;
+        this.therapistName = therapistName;
+        this.specialization = specialization;
+        this.contactNumber = Integer.parseInt(contactNumber);
+        this.programId = programId;
+    }
 }

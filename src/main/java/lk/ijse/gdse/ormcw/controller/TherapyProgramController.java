@@ -50,8 +50,7 @@ public class TherapyProgramController implements Initializable {
     @FXML
     private TableColumn<TherapyProgramTM,String> colname;
 
-    @FXML
-    private TableColumn<TherapyProgramTM,String> coldes;
+
 
     @FXML
     private Label lblbirthday;
@@ -87,7 +86,7 @@ public class TherapyProgramController implements Initializable {
         colname.setCellValueFactory(new PropertyValueFactory<>("programName"));
         colduration.setCellValueFactory(new PropertyValueFactory<>("duration"));
         colfee.setCellValueFactory(new PropertyValueFactory<>("cost"));
-        coldes.setCellValueFactory(new PropertyValueFactory<>("Description"));
+
 
 
         try {
@@ -131,9 +130,9 @@ public class TherapyProgramController implements Initializable {
         String programName = txtname.getText();
         String duration = txtduration.getText();
         double cost = Double.parseDouble(txtfee.getText());
-        String Description = txtdes.getText();
 
-        TherapyProgramDTO therapyProgramDTO = new TherapyProgramDTO(programId, programName, duration, cost, Description);
+
+        TherapyProgramDTO therapyProgramDTO = new TherapyProgramDTO(programId, programName, duration, cost);
         try {
             boolean isSaved = therapyProgramBO.save( therapyProgramDTO);
             if(isSaved){
@@ -160,7 +159,7 @@ public class TherapyProgramController implements Initializable {
             txtname.setText(therapyProgramTM.getProgramName());
             txtduration.setText(therapyProgramTM.getDuration());
             txtfee.setText(String.valueOf(therapyProgramTM.getCost()));
-            txtdes.setText(therapyProgramTM.getDescription());
+
 
 
 
@@ -176,9 +175,9 @@ public class TherapyProgramController implements Initializable {
         String programName = txtname.getText();
         String duration = txtduration.getText();
         double cost = Double.parseDouble(txtfee.getText());
-        String Description = txtdes.getText();
 
-        TherapyProgramDTO therapyProgramDTO = new TherapyProgramDTO(programId, programName, duration, cost, Description);
+
+        TherapyProgramDTO therapyProgramDTO = new TherapyProgramDTO(programId, programName, duration, cost);
         try {
             boolean isSaved = therapyProgramBO.update( therapyProgramDTO);
             if(isSaved){
@@ -209,8 +208,7 @@ public class TherapyProgramController implements Initializable {
                     therapyProgramDTO.getProgramId(),
                     therapyProgramDTO.getProgramName(),
                     therapyProgramDTO.getDuration(),
-                    therapyProgramDTO.getCost(),
-                    therapyProgramDTO.getDescription()
+                    therapyProgramDTO.getCost()
 
 
             );
@@ -230,7 +228,7 @@ public class TherapyProgramController implements Initializable {
         txtname.setText("");
         txtduration.setText("");
         txtfee.setText("");
-        txtdes.setText("");
+
 
     }
 

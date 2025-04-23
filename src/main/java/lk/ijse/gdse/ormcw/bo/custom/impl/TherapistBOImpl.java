@@ -1,6 +1,7 @@
 package lk.ijse.gdse.ormcw.bo.custom.impl;
 
 import lk.ijse.gdse.ormcw.bo.custom.TherapistBO;
+import lk.ijse.gdse.ormcw.config.FactoryConfiguration;
 import lk.ijse.gdse.ormcw.dao.DAOFactory;
 import lk.ijse.gdse.ormcw.dao.custom.TherapistDAO;
 import lk.ijse.gdse.ormcw.dao.custom.impl.TherapistDAOImpl;
@@ -9,6 +10,8 @@ import lk.ijse.gdse.ormcw.dto.TherapistDTO;
 import lk.ijse.gdse.ormcw.dto.UserDTO;
 import lk.ijse.gdse.ormcw.entity.Patient;
 import lk.ijse.gdse.ormcw.entity.Therapist;
+import lk.ijse.gdse.ormcw.entity.TherapyProgram;
+import org.hibernate.Session;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -20,7 +23,20 @@ public class TherapistBOImpl implements TherapistBO {
     TherapistDAO therapistDAO = (TherapistDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.THERAPIST);
     @Override
     public boolean save(TherapistDTO therapistDTO) throws IOException, SQLException {
-        return therapistDAO.save(new Therapist(therapistDTO.getTherapistId(), therapistDTO.getTherapistName(), therapistDTO.getSpecialization(), therapistDTO.getAvailability()));
+        Session session = FactoryConfiguration.getInstance().getSession();
+
+        TherapyProgram therapyProgram = session.get(TherapyProgram.class, therapistDTO.getProgramId());
+        if ( therapyProgram == null) {
+            return false;
+        }
+        Therapist therapist = new Therapist(
+                therapistDTO.getTherapistId(),
+                therapistDTO.getTherapistName(),
+                therapistDTO.getSpecialization(),
+                therapistDTO.getContactNumber(),
+                therapyProgram
+        );
+            return therapistDAO.save(therapist);
     }
 
     @Override
@@ -31,7 +47,18 @@ public class TherapistBOImpl implements TherapistBO {
     @Override
     public TherapistDTO findById(String therapistId) throws SQLException, ClassNotFoundException {
         Therapist therapist = therapistDAO.findById(therapistId);
-        return new TherapistDTO(therapist.getTherapistId(),therapist.getTherapistName(),therapist.getSpecialization(),therapist.getTherapistId());
+
+        String programId = null;
+        if(therapist.getTherapyProgram() != null){
+            programId = therapist.getTherapyProgram().getProgramId();
+        }
+        return new TherapistDTO(
+                therapist.getTherapistId(),
+                therapist.getTherapistName(),
+                therapist.getSpecialization(),
+                therapist.getContactNumber(),
+                programId
+        );
     }
 
     @Override
@@ -55,7 +82,12 @@ public class TherapistBOImpl implements TherapistBO {
             therapistDTO.setTherapistId(therapist.getTherapistId());
             therapistDTO.setTherapistName(therapist.getTherapistName());
             therapistDTO.setSpecialization(therapist.getSpecialization());
-            therapistDTO.setAvailability(therapist.getAvailability());
+            therapistDTO.setContactNumber(therapist.getContactNumber());
+            if (therapist.getTherapyProgram() != null) {
+                therapistDTO.setProgramId(therapist.getTherapyProgram().getProgramId());
+            } else {
+                therapistDTO.setProgramId("N/A");
+            }
             therapistDTOS.add(therapistDTO);
         }
         return therapistDTOS;
@@ -63,8 +95,20 @@ public class TherapistBOImpl implements TherapistBO {
 
     @Override
     public boolean update(TherapistDTO therapistDTO) throws IOException, SQLException {
-        return therapistDAO.update(new Therapist(therapistDTO.getTherapistId(), therapistDTO.getTherapistName(), therapistDTO.getSpecialization(), therapistDTO.getAvailability()));
-    }
+        Session session = FactoryConfiguration.getInstance().getSession();
+
+        TherapyProgram therapyProgram = session.get(TherapyProgram.class, therapistDTO.getProgramId());
+        if ( therapyProgram == null) {
+            return false;
+        }
+        Therapist therapist = new Therapist(
+                therapistDTO.getTherapistId(),
+                therapistDTO.getTherapistName(),
+                therapistDTO.getSpecialization(),
+                therapistDTO.getContactNumber(),
+                therapyProgram
+        );
+        return therapistDAO.update(therapist);    }
 
     @Override
     public boolean delete(String ID) throws SQLException, IOException {
