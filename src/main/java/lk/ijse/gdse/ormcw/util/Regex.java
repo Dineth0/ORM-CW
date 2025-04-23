@@ -13,6 +13,7 @@ public class Regex {
             case TIME -> "^(0[1-9]|1[0-2]):[0-5][0-9]\\s?(AM|PM)$\n";
 
             case FEE -> "^([0-9]){1,}[.]([0-9]){1,}$";
+            case PASSWORD -> "^(?! *$)[^\\s]+$";
         };
         Pattern pattern = Pattern.compile(filed);
 

@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface PaymentDAO extends CrudDAO<Payment> {
     public List<Payment> searchPayment(String PatientId) throws IOException;
+    public double getPreviousTotalAmount(String patientId) throws IOException;
 }

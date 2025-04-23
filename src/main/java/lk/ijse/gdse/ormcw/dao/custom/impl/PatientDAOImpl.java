@@ -52,10 +52,10 @@ public class PatientDAOImpl implements PatientDAO {
 
     @Override
     public boolean save(Patient patient) throws IOException, SQLException {
-        System.out.println("Saving Patient ID: " + patient.getPatientId()); // Debugging
+        System.out.println("Saving Patient ID: " + patient.getPatientId());
 
         if (patient.getPatientId() == null || patient.getPatientId().isEmpty()) {
-            throw new SQLException("Patient ID is null!"); // 💡 Manually Throw Error
+            throw new SQLException("Patient ID is null!");
         }
 
         Session session = FactoryConfiguration.getInstance().getSession();
@@ -100,7 +100,7 @@ public class PatientDAOImpl implements PatientDAO {
         Patient patient = null;
 
         try (Session session = FactoryConfiguration.getInstance().getSession()) {
-            // Fetch the Student entity using the primary key
+
             patient = session.get(Patient.class, patientId);
         } catch (Exception e) {
             e.printStackTrace();

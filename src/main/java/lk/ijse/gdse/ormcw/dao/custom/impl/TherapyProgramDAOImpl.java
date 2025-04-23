@@ -19,7 +19,7 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
         TherapyProgram therapyProgram = null;
 
         try (Session session = FactoryConfiguration.getInstance().getSession()) {
-            // Fetch the Student entity using the primary key
+
             therapyProgram = session.get(TherapyProgram.class, programId);
         } catch (Exception e) {
             e.printStackTrace();

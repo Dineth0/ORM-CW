@@ -207,7 +207,7 @@ public class PaymentController implements Initializable {
     }
 
     @FXML
-    void SaveOnAction(ActionEvent event) {
+    void SaveOnAction(ActionEvent event) throws IOException {
         String PaymentId = lblid.getText();
         String patientId = combopatientid.getValue();
         double amount = Double.parseDouble(txtamount.getText());
@@ -216,17 +216,23 @@ public class PaymentController implements Initializable {
 
         double regfee = Double.parseDouble(lblregfee.getText());
 
-        double totalAmount = amount + regfee;
-        System.out.println("Amount: " + amount + ", Reg Fee: " + regfee + ", Total Amount: " + totalAmount);
 
+        double previousTotalAmount = paymentBO.getPreviousTotalAmount(patientId);
+        double totalAmount = previousTotalAmount + amount + regfee;
+       // System.out.println("Amount: " + amount + ", Reg Fee: " + regfee + ", Total Amount: " + totalAmount);
+        System.out.println("Previous Total: " + previousTotalAmount);
+        System.out.println("Amount: " + amount);
+        System.out.println("Reg Fee: " + regfee);
+        System.out.println("Calculated Total Amount: " + totalAmount);
         try{
             PaymentDTO paymentDTO = new PaymentDTO(
                     PaymentId,patientId,amount,paymentDate,Status,totalAmount
             );
             boolean isRegistered = paymentBO.save(paymentDTO);
 
+
             if (isRegistered) {
-                refreshPage();  // UI එක refresh කරන්න
+                refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Payment Saved SUCCESSFULLY 😎").show();
             } else {
                 new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
@@ -257,38 +263,38 @@ public class PaymentController implements Initializable {
         }
     }
 
-    @FXML
-    void UpdateOnAction(ActionEvent event) {
-        String PaymentId = lblid.getText();
-        String patientId = combopatientid.getValue();
-        double amount = Double.parseDouble(txtamount.getText());
-        String paymentDate = lbldate.getText();
-        String Status = lblstatus.getText();
+//    @FXML
+//    void UpdateOnAction(ActionEvent event) {
+//        String PaymentId = lblid.getText();
+//        String patientId = combopatientid.getValue();
+//        double amount = Double.parseDouble(txtamount.getText());
+//        String paymentDate = lbldate.getText();
+//        String Status = lblstatus.getText();
+//
+//        double regfee = Double.parseDouble(lblregfee.getText());
+//
+//        double totalAmount = amount + regfee;
+//
+//        try{
+//            PaymentDTO paymentDTO = new PaymentDTO(
+//                    PaymentId,patientId,amount,paymentDate,Status,totalAmount
+//            );
+//            boolean isRegistered = paymentBO.update(paymentDTO);
+//
+//            if (isRegistered) {
+//                refreshPage();  // UI එක refresh කරන්න
+//                new Alert(Alert.AlertType.INFORMATION, "Payment Updated SUCCESSFULLY 😎").show();
+//            } else {
+//                new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
+//            }
+//        } catch (IOException e) {
+//            new Alert(Alert.AlertType.ERROR, "Duplicate ID").show();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        } catch (ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
 
-        double regfee = Double.parseDouble(lblregfee.getText());
-
-        double totalAmount = amount + regfee;
-
-        try{
-            PaymentDTO paymentDTO = new PaymentDTO(
-                    PaymentId,patientId,amount,paymentDate,Status,totalAmount
-            );
-            boolean isRegistered = paymentBO.update(paymentDTO);
-
-            if (isRegistered) {
-                refreshPage();  // UI එක refresh කරන්න
-                new Alert(Alert.AlertType.INFORMATION, "Payment Updated SUCCESSFULLY 😎").show();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
-            }
-        } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR, "Duplicate ID").show();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     private void loadPatientIDs() throws SQLException, IOException, ClassNotFoundException {
         ArrayList<String> patientIds = patientBO.getAllPatientIds();

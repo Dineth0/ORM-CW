@@ -29,12 +29,12 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="43.0" layoutY="181.0" prefHeight="31.0" prefWidth="111.0" text="Password">
+      <Label layoutX="43.0" layoutY="146.0" prefHeight="31.0" prefWidth="111.0" text="Password">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txtname" layoutX="199.0" layoutY="94.0" prefHeight="25.0" prefWidth="320.0" style="-fx-opacity: 0.7;" />
+      <TextField fx:id="txtname" layoutX="199.0" layoutY="94.0" onKeyReleased="#txtnameKeyRelaesedOnAction" prefHeight="25.0" prefWidth="320.0" style="-fx-opacity: 0.7;" />
       <Button fx:id="btnsave" layoutX="59.0" layoutY="314.0" mnemonicParsing="false" onAction="#SaveOnAction" prefHeight="31.0" prefWidth="123.0" style="-fx-background-color: #FFB8E0;" text="SAVE">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -73,7 +73,7 @@
             <Image url="@images/save.png" />
          </image>
       </ImageView>
-      <Label layoutX="44.0" layoutY="218.0" prefHeight="31.0" prefWidth="111.0" text="Role">
+      <Label layoutX="44.0" layoutY="205.0" prefHeight="31.0" prefWidth="111.0" text="Role">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -88,12 +88,12 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="rolecombo" layoutX="199.0" layoutY="221.0" onAction="#CpmboBoxOnAction" prefHeight="25.0" prefWidth="171.0" style="-fx-opacity: 0.7;" />
-      <Label fx:id="lblrole" layoutX="381.0" layoutY="218.0" prefHeight="31.0" prefWidth="146.0" text="1">
+      <ComboBox fx:id="rolecombo" layoutX="199.0" layoutY="207.0" onAction="#CpmboBoxOnAction" prefHeight="25.0" prefWidth="171.0" style="-fx-opacity: 0.7;" />
+      <Label fx:id="lblrole" layoutX="381.0" layoutY="205.0" prefHeight="31.0" prefWidth="146.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <PasswordField fx:id="txtpassword" layoutX="199.0" layoutY="178.0" prefHeight="25.0" prefWidth="320.0" style="-fx-opacity: 0.7;" />
+      <PasswordField fx:id="txtpassword" layoutX="199.0" layoutY="150.0" onKeyReleased="#txtpasswordKeyRelaesedOnAction" prefHeight="25.0" prefWidth="320.0" style="-fx-opacity: 0.7;" />
    </children>
 </AnchorPane>

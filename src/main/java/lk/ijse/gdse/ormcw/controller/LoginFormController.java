@@ -53,7 +53,7 @@ public class LoginFormController {
 
             if (role.equals("admin")) {
                 AdminDashboard();
-            } else {
+            } else if (role.equals("receptionist")){
                 ResipDashboard();
             }
 

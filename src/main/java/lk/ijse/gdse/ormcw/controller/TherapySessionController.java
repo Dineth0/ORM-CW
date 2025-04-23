@@ -283,11 +283,11 @@ public class TherapySessionController implements Initializable {
     @FXML
     void UpdateOnAction(ActionEvent event) {
         String sessionId = lblid.getText();
-        String sessionDate = lbldate.getText();  // Date should be in proper format, for example, "yyyy-MM-dd"
+        String sessionDate = lbldate.getText();
         String sessionTime = txttime.getText();
         String status = combostatus.getValue();
-        String therapistId = combotherapistId.getValue();  // therapistId should be a valid String
-        String patientId = combopatientid.getValue();  // patientId should be a valid String
+        String therapistId = combotherapistId.getValue();
+        String patientId = combopatientid.getValue();
         String payment = combopayment.getValue();
 
 
@@ -299,7 +299,7 @@ public class TherapySessionController implements Initializable {
             boolean isRegistered = therapySessionBO.update(therapySessionDTO);
 
             if (isRegistered) {
-                refreshPage();  // UI එක refresh කරන්න
+                refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "User Saved SUCCESSFULLY 😎").show();
             } else {
                 new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
@@ -367,17 +367,17 @@ public class TherapySessionController implements Initializable {
         try {
             List<Therapy_Session> sessionList = null;
 
-            // Therapist ID එකක් නම් ("T" හෝ "T00X" වගේ නම්) පළවෙනි try එක
+
             if (input.matches("T\\d+")) {
                 sessionList = therapySessionBO.searchTherapistTherapySession(input);
             }
 
-            // Therapist ID එකක් නොවෙයි නම් නැත්නම් null ආවොත්, name එකක් ලෙස second try එක
+
             if (sessionList == null || sessionList.isEmpty()) {
                 sessionList = therapySessionBO.searchTherapySession(input);
             }
 
-            // sessions null නම් Alert එකක්
+
             if (sessionList == null || sessionList.isEmpty()) {
                 new Alert(Alert.AlertType.INFORMATION, "No sessions found for: " + input).show();
                 return;
@@ -397,7 +397,7 @@ public class TherapySessionController implements Initializable {
                 ));
             }
 
-            // Therapist ID එකක් නම් TherapistSearch.fxml otherwise Search.fxml
+
             String fxmlPath = input.matches("T\\d+")
                     ? "/view/TherapistSearch.fxml"
                     : "/view/Search.fxml";

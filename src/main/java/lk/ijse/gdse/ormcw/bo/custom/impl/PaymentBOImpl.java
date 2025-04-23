@@ -136,4 +136,9 @@ public class PaymentBOImpl implements PaymentBO {
             return null;
         }
     }
+
+    @Override
+    public double getPreviousTotalAmount(String patientId) throws IOException {
+        return paymentDAO.getPreviousTotalAmount(patientId);
+    }
 }

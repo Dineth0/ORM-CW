@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.gdse.ormcw.bo.BOFactory;
@@ -15,6 +16,7 @@ import lk.ijse.gdse.ormcw.bo.custom.UserBO;
 import lk.ijse.gdse.ormcw.dto.UserDTO;
 import lk.ijse.gdse.ormcw.entity.User;
 import lk.ijse.gdse.ormcw.tm.UserTM;
+import lk.ijse.gdse.ormcw.util.Regex;
 
 import java.io.IOException;
 import java.net.URL;
@@ -112,22 +114,24 @@ public class UserFormController implements Initializable {
         String Password = txtpassword.getText();
         String Role = rolecombo.getValue();
 
-        try {
-            boolean isRegistered = userBO.save(new UserDTO(Id,UserName,Password,Role));
-            if(isRegistered){
-                refreshPage();
-                new Alert(Alert.AlertType.INFORMATION,"User Saved SUCCESSFULLY 😎").show();
+        if(isValid()) {
 
+            try {
+                boolean isRegistered = userBO.save(new UserDTO(Id, UserName, Password, Role));
+                if (isRegistered) {
+                    refreshPage();
+                    new Alert(Alert.AlertType.INFORMATION, "User Saved SUCCESSFULLY 😎").show();
+
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
+                }
+            } catch (IOException e) {
+                new Alert(Alert.AlertType.ERROR, "duplicate Id");
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
-            else {
-                new Alert(Alert.AlertType.ERROR,"PLEASE TRY AGAIN 😥").show();
-            }
-        } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR,"duplicate Id");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
     }
     private void loadTableData() throws SQLException, ClassNotFoundException, IOException {
@@ -170,22 +174,24 @@ public class UserFormController implements Initializable {
         String Password = txtpassword.getText();
         String Role = rolecombo.getValue();
 
-        try {
-            boolean isRegistered = userBO.update(new UserDTO(Id,UserName,Password,Role));
-            if(isRegistered){
-                refreshPage();
-                new Alert(Alert.AlertType.INFORMATION,"User Saved SUCCESSFULLY 😎").show();
+        if(isValid()) {
 
+            try {
+                boolean isRegistered = userBO.update(new UserDTO(Id, UserName, Password, Role));
+                if (isRegistered) {
+                    refreshPage();
+                    new Alert(Alert.AlertType.INFORMATION, "User Saved SUCCESSFULLY 😎").show();
+
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
+                }
+            } catch (IOException e) {
+                new Alert(Alert.AlertType.ERROR, "duplicate Id");
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
-            else {
-                new Alert(Alert.AlertType.ERROR,"PLEASE TRY AGAIN 😥").show();
-            }
-        } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR,"duplicate Id");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -208,5 +214,22 @@ public class UserFormController implements Initializable {
         txtpassword.setText("");
         lblrole.setText("");
 
+    }
+    @FXML
+    void txtnameKeyRelaesedOnAction(KeyEvent event) {
+        Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.NAME, txtname);
+
+    }
+
+    @FXML
+    void txtpasswordKeyRelaesedOnAction(KeyEvent event) {
+        Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.PASSWORD, txtpassword);
+
+    }
+    public boolean isValid(){
+        if(!Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.NAME, txtname)) return false;
+        if(!Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.PASSWORD, txtpassword)) return false;
+
+        return true;
     }
 }

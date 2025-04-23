@@ -6,11 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.gdse.ormcw.bo.BOFactory;
 import lk.ijse.gdse.ormcw.bo.custom.UserBO;
 import lk.ijse.gdse.ormcw.dto.UserDTO;
+import lk.ijse.gdse.ormcw.util.Regex;
 
 import java.io.IOException;
 import java.net.URL;
@@ -67,20 +69,22 @@ public class RegistrationController implements Initializable {
         String Password = txtpassword.getText();
         String Role = lblrole.getText();
 
-        try {
-            boolean isRegistered = userBO.save(new UserDTO(Id,UserName,Password,Role));
-            if(isRegistered){
-                new Alert(Alert.AlertType.INFORMATION,"REGISTERED SUCCESSFULLY").show();
-                clearFeilds();
-                loginPage();
+        if(isValid()) {
+
+            try {
+                boolean isRegistered = userBO.save(new UserDTO(Id, UserName, Password, Role));
+                if (isRegistered) {
+                    new Alert(Alert.AlertType.INFORMATION, "REGISTERED SUCCESSFULLY").show();
+                    clearFeilds();
+                    loginPage();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN").show();
+                }
+            } catch (IOException e) {
+                new Alert(Alert.AlertType.ERROR, "duplicate Id");
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-            else {
-                new Alert(Alert.AlertType.ERROR,"PLEASE TRY AGAIN").show();
-            }
-        } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR,"duplicate Id");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
     public void clearFeilds(){
@@ -98,6 +102,23 @@ public class RegistrationController implements Initializable {
     private void LoadNextID() throws SQLException, IOException {
         String nextID = userBO.getNextId();
         lblid.setText(nextID);
+    }
+    @FXML
+    void txtnameKeyRelaesedOnAction(KeyEvent event) {
+        Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.NAME, txtname);
+
+    }
+
+    @FXML
+    void txtpasswordKeyRelaesedOnAction(KeyEvent event) {
+        Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.PASSWORD, txtpassword);
+
+    }
+    public boolean isValid(){
+        if(!Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.NAME, txtname)) return false;
+        if(!Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.PASSWORD, txtpassword)) return false;
+
+        return true;
     }
 
 }

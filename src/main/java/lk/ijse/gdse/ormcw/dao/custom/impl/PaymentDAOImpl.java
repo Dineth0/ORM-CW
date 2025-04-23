@@ -97,4 +97,27 @@ public class PaymentDAOImpl implements PaymentDAO {
         session.close();
         return list;
     }
+
+    @Override
+    public double getPreviousTotalAmount(String patientId) throws IOException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        String hql = "FROM Payment p WHERE p.patient.patientId = :patientId ORDER BY paymentDate DESC";
+        Query<Payment> query = session.createQuery(hql, Payment.class);
+        query.setParameter("patientId", patientId);
+        query.setMaxResults(1);
+
+
+        Payment payment = query.uniqueResult();
+
+        double previousTotalAmount = 0.0;
+        if (payment != null) {
+            previousTotalAmount = payment.getTotalAmount();
+        }
+
+        transaction.commit();
+        session.close();
+
+        return previousTotalAmount;
+    }
 }

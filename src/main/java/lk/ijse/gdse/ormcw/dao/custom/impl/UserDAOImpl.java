@@ -66,7 +66,7 @@ public class UserDAOImpl implements UserDAO {
             Query<String> query = session.createQuery(hql);
             query.setMaxResults(1);
             String lastId = query.uniqueResult();
-        System.out.println("Last ID from DB: " + lastId); // Debuggi
+        System.out.println("Last ID from DB: " + lastId);
             transaction.commit();
             session.close();
 

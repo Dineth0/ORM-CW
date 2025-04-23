@@ -52,8 +52,10 @@ public class ReceptionistDashboardController implements Initializable {
         }
 
         @FXML
-        void PayementOnAction(ActionEvent event) {
-
+        void PayementOnAction(ActionEvent event) throws IOException {
+                AnchorPane userpage = FXMLLoader.load(getClass().getResource("/view/Payment.fxml"));
+                recipAncBody.getChildren().clear();
+                recipAncBody.getChildren().add(userpage);
         }
 
         @FXML

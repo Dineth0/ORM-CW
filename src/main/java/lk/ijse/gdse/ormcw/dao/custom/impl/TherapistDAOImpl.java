@@ -93,7 +93,7 @@ public class TherapistDAOImpl implements TherapistDAO {
         Therapist therapist = null;
 
         try (Session session = FactoryConfiguration.getInstance().getSession()) {
-            // Fetch the Student entity using the primary key
+
             therapist = session.get(Therapist.class, therapistId);
         } catch (Exception e) {
             e.printStackTrace();

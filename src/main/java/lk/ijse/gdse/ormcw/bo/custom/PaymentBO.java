@@ -15,4 +15,5 @@ public interface PaymentBO extends SuperBO {
     public boolean update(PaymentDTO paymentDTO) throws IOException, SQLException;
     public boolean delete(String ID) throws SQLException, IOException;
     public List<Payment> searchPayment(String name) throws SQLException, IOException, ClassNotFoundException;
-}
+    public double getPreviousTotalAmount(String patientId) throws IOException;
+    }

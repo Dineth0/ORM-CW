@@ -1,5 +1,5 @@
 package lk.ijse.gdse.ormcw.util;
 
 public enum TextField {
-        NAME,AGE,TEL,TIME,DURATION,FEE
+        NAME,AGE,TEL,TIME,DURATION,FEE,PASSWORD
 }

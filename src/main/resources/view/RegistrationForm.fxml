@@ -11,8 +11,8 @@
 <AnchorPane fx:id="registor" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #D69ADE;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.ormcw.controller.RegistrationController">
    <children>
       <VBox layoutX="230.0" layoutY="76.0" prefHeight="30.0" prefWidth="223.0" />
-      <PasswordField fx:id="txtpassword" layoutX="230.0" layoutY="198.0" prefHeight="25.0" prefWidth="223.0" promptText="Pasword" style="-fx-background-color: #AA60C8;" />
-      <TextField fx:id="txtname" layoutX="229.0" layoutY="150.0" prefHeight="25.0" prefWidth="223.0" promptText="UserName" style="-fx-background-color: #AA60C8;" />
+      <PasswordField fx:id="txtpassword" layoutX="230.0" layoutY="198.0" onKeyReleased="#txtpasswordKeyRelaesedOnAction" prefHeight="25.0" prefWidth="223.0" promptText="Pasword" style="-fx-background-color: #AA60C8;" />
+      <TextField fx:id="txtname" layoutX="229.0" layoutY="150.0" onKeyReleased="#txtnameKeyRelaesedOnAction" prefHeight="25.0" prefWidth="223.0" promptText="UserName" style="-fx-background-color: #AA60C8;" />
       <Button layoutX="233.0" layoutY="322.0" mnemonicParsing="false" onAction="#RegistorOnAction" prefHeight="25.0" prefWidth="172.0" style="-fx-background-color: #FF2DF1;" text="Registor">
          <font>
             <Font name="System Bold" size="14.0" />

@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.gdse.ormcw.bo.BOFactory;
@@ -22,6 +23,7 @@ import lk.ijse.gdse.ormcw.entity.Patient_Registration;
 import lk.ijse.gdse.ormcw.entity.TherapyProgram;
 import lk.ijse.gdse.ormcw.tm.PatientRegistrationTM;
 import lk.ijse.gdse.ormcw.tm.TherapySessionTM;
+import lk.ijse.gdse.ormcw.util.Regex;
 
 import java.io.IOException;
 import java.net.URL;
@@ -195,24 +197,27 @@ public class PatientRegistrationController implements Initializable {
 
         double balance = amount-registerFee;
 
-        try{
-            PatientRegistrationDTO patientRegistrationDTO = new PatientRegistrationDTO(
-                    registrationId,patientId,programId,registrationDate,registerFee,balance
-            );
-            boolean isRegistered = patientRegistrationBO.save(patientRegistrationDTO);
+        if (isValid()) {
 
-            if (isRegistered) {
-                refreshPage();  // UI එක refresh කරන්න
-                new Alert(Alert.AlertType.INFORMATION, "PatientRegistration Saved SUCCESSFULLY 😎").show();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
+            try {
+                PatientRegistrationDTO patientRegistrationDTO = new PatientRegistrationDTO(
+                        registrationId, patientId, programId, registrationDate, registerFee, balance
+                );
+                boolean isRegistered = patientRegistrationBO.save(patientRegistrationDTO);
+
+                if (isRegistered) {
+                    refreshPage();
+                    new Alert(Alert.AlertType.INFORMATION, "PatientRegistration Saved SUCCESSFULLY 😎").show();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
+                }
+            } catch (IOException e) {
+                new Alert(Alert.AlertType.ERROR, "Duplicate ID").show();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
-        } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR, "Duplicate ID").show();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
 
     }
@@ -230,9 +235,9 @@ public class PatientRegistrationController implements Initializable {
 
 
 
-            btndelete.setDisable(false);
+           // btndelete.setDisable(false);
             btnsave.setDisable(true);
-            btnupdate.setDisable(false);
+            //btnupdate.setDisable(false);
         }
     }
 
@@ -282,26 +287,26 @@ public class PatientRegistrationController implements Initializable {
     }
     private void loadTableData() {
         try {
-            // Fetch all Patient Registration records from database
+
             List<PatientRegistrationDTO> patientRegistrations = patientRegistrationBO.getAll();
             ObservableList<PatientRegistrationTM> registrationList = FXCollections.observableArrayList();
 
             for (PatientRegistrationDTO registrationDTO : patientRegistrations) {
-                // Patient Registration data added to the ObservableList
+
                 registrationList.add(new PatientRegistrationTM(
                                         registrationDTO.getRegistrationId(),
                                         registrationDTO.getPatientId(),
                                         registrationDTO.getProgramId(),
-                        registrationDTO.getRegistrationDate(),  // Make sure the session count is being updated in the DTO
+                        registrationDTO.getRegistrationDate(),
                         registrationDTO.getSessionCount(),
                         registrationDTO.getRegisterFee(),
                         registrationDTO.getBalance()
                                 ));
             }
 
-            // Set the data to the TableView
+
             Platform.runLater(() -> {
-                RegistrationTable.setItems(registrationList);  // Refresh TableView data
+                RegistrationTable.setItems(registrationList);
             });
 
         } catch (SQLException e) {
@@ -316,9 +321,9 @@ public class PatientRegistrationController implements Initializable {
         LoadNextID();
         loadTableData();
 
-        btndelete.setDisable(true);
+       // btndelete.setDisable(true);
         btnsave.setDisable(false);
-        btnupdate.setDisable(true);
+      //  btnupdate.setDisable(true);
 
         lblpatientid.setText("");
         lblprogramid.setText("");
@@ -326,6 +331,16 @@ public class PatientRegistrationController implements Initializable {
         lblcount.setText("");
 
 
+    }
+    @FXML
+    void txtfeeKeyReleasedOnAction(KeyEvent event) {
+        Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.FEE, txtfee);
+
+    }
+    public boolean isValid(){
+        if(!Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.FEE, txtfee)) return false;
+
+        return true;
     }
 
 }
