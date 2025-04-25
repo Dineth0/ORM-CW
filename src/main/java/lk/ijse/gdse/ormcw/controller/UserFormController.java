@@ -14,13 +14,11 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.gdse.ormcw.bo.BOFactory;
 import lk.ijse.gdse.ormcw.bo.custom.UserBO;
 import lk.ijse.gdse.ormcw.dto.UserDTO;
-import lk.ijse.gdse.ormcw.entity.User;
 import lk.ijse.gdse.ormcw.tm.UserTM;
 import lk.ijse.gdse.ormcw.util.Regex;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;

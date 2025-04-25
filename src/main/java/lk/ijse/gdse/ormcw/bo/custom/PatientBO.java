@@ -2,8 +2,7 @@ package lk.ijse.gdse.ormcw.bo.custom;
 
 import lk.ijse.gdse.ormcw.bo.SuperBO;
 import lk.ijse.gdse.ormcw.dto.PatientDTO;
-import lk.ijse.gdse.ormcw.dto.TherapistDTO;
-import lk.ijse.gdse.ormcw.dto.UserDTO;
+import lk.ijse.gdse.ormcw.entity.Patient;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -20,6 +19,7 @@ public interface PatientBO extends SuperBO {
     public ArrayList<String> getAllPatientIds() throws SQLException, ClassNotFoundException, IOException;
     public int getTotalPatients() throws SQLException, ClassNotFoundException, IOException;
     public List<Object[]> getPatientsBySessionId(String sessionId) throws SQLException, ClassNotFoundException, IOException;
+    public List<PatientDTO> getPatientsEnrolledInPrograms() throws IOException;
 
 
 

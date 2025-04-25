@@ -1,8 +1,5 @@
 package lk.ijse.gdse.ormcw.dao;
 
-import lk.ijse.gdse.ormcw.bo.SuperBO;
-import lk.ijse.gdse.ormcw.bo.custom.impl.PatientRegistrationBOImpl;
-import lk.ijse.gdse.ormcw.bo.custom.impl.TherapyProgramBOImpl;
 import lk.ijse.gdse.ormcw.dao.custom.impl.*;
 
 public class DAOFactory {
@@ -16,7 +13,7 @@ public class DAOFactory {
     }
 
     public enum DAOTypes {
-       PATIENT, PAYMENT,THERAPIST,THERAPYOROGRAM,THERAPY_SESSION,USER,PATIENT_REGISTRATION
+       PATIENT, PAYMENT,THERAPIST,THERAPYOROGRAM,THERAPY_SESSION,USER,PATIENT_REGISTRATION,QUERY
     }
 
     public SuperDAO getDAO(DAOTypes types) {
@@ -40,6 +37,9 @@ public class DAOFactory {
 
             case PAYMENT:
                 return (SuperDAO) new PaymentDAOImpl();
+
+            case QUERY:
+                return (SuperDAO) new QueryDAOImpl();
 
             default:
                 return null;

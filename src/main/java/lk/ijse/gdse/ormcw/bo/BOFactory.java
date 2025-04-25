@@ -1,7 +1,6 @@
 package lk.ijse.gdse.ormcw.bo;
 
 import lk.ijse.gdse.ormcw.bo.custom.impl.*;
-import lk.ijse.gdse.ormcw.dao.SuperDAO;
 
 
 public class BOFactory {
@@ -39,6 +38,8 @@ public class BOFactory {
 
              case PAYMENT:
                  return (SuperBO) new PaymentBOImpl();
+
+
             default:
                 return null;
         }

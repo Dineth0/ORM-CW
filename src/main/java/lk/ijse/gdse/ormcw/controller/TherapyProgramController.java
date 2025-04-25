@@ -11,11 +11,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.gdse.ormcw.bo.BOFactory;
 import lk.ijse.gdse.ormcw.bo.custom.TherapyProgramBO;
-import lk.ijse.gdse.ormcw.dto.PatientDTO;
 import lk.ijse.gdse.ormcw.dto.TherapyProgramDTO;
-import lk.ijse.gdse.ormcw.tm.PatientTM;
 import lk.ijse.gdse.ormcw.tm.TherapyProgramTM;
-import lk.ijse.gdse.ormcw.tm.TherapySessionTM;
 
 import java.io.IOException;
 import java.net.URL;

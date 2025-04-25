@@ -2,7 +2,6 @@ package lk.ijse.gdse.ormcw.bo.custom;
 
 import lk.ijse.gdse.ormcw.bo.SuperBO;
 import lk.ijse.gdse.ormcw.dto.PatientRegistrationDTO;
-import lk.ijse.gdse.ormcw.entity.Patient_Registration;
 
 import java.io.IOException;
 import java.sql.SQLException;

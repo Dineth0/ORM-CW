@@ -15,7 +15,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import lk.ijse.gdse.ormcw.bo.BOFactory;
 import lk.ijse.gdse.ormcw.bo.custom.PatientBO;
 import lk.ijse.gdse.ormcw.bo.custom.TherapistBO;
@@ -24,7 +23,6 @@ import lk.ijse.gdse.ormcw.dto.PatientDTO;
 import lk.ijse.gdse.ormcw.dto.TherapistDTO;
 import lk.ijse.gdse.ormcw.dto.TherapySessionDTO;
 import lk.ijse.gdse.ormcw.entity.Therapy_Session;
-import lk.ijse.gdse.ormcw.tm.TherapistTM;
 import lk.ijse.gdse.ormcw.tm.TherapySessionTM;
 import lk.ijse.gdse.ormcw.util.Regex;
 
@@ -434,6 +432,7 @@ public class TherapySessionController implements Initializable {
         Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.TIME,txttime);
 
     }
+
 
 }
 

@@ -111,5 +111,10 @@
          </font>
       </Label>
       <TextField fx:id="txtage" layoutX="199.0" layoutY="139.0" onKeyReleased="#txtAgeKeyReleased" prefHeight="25.0" prefWidth="320.0" style="-fx-opacity: 0.7;" />
+      <Button fx:id="btnenrolled" layoutX="585.0" layoutY="148.0" mnemonicParsing="false" onAction="#PatientProgramEnrolledOnAction" prefHeight="31.0" prefWidth="175.0" style="-fx-background-color: #A5158C;" text="Patient Program Enrolled" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

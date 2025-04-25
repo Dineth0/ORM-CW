@@ -3,9 +3,7 @@ package lk.ijse.gdse.ormcw.bo.custom.impl;
 import lk.ijse.gdse.ormcw.bo.custom.TherapyProgramBO;
 import lk.ijse.gdse.ormcw.dao.DAOFactory;
 import lk.ijse.gdse.ormcw.dao.custom.TherapyProgramDAO;
-import lk.ijse.gdse.ormcw.dto.PatientDTO;
 import lk.ijse.gdse.ormcw.dto.TherapyProgramDTO;
-import lk.ijse.gdse.ormcw.entity.Patient;
 import lk.ijse.gdse.ormcw.entity.TherapyProgram;
 
 import java.io.IOException;

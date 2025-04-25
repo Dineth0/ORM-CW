@@ -3,10 +3,10 @@ package lk.ijse.gdse.ormcw.bo.custom.impl;
 import lk.ijse.gdse.ormcw.bo.custom.PatientBO;
 import lk.ijse.gdse.ormcw.dao.DAOFactory;
 import lk.ijse.gdse.ormcw.dao.custom.PatientDAO;
+import lk.ijse.gdse.ormcw.dao.custom.QueryDAO;
 import lk.ijse.gdse.ormcw.dto.PatientDTO;
-import lk.ijse.gdse.ormcw.dto.UserDTO;
 import lk.ijse.gdse.ormcw.entity.Patient;
-import lk.ijse.gdse.ormcw.entity.User;
+import  lk.ijse.gdse.ormcw.bo.exception.ClassNotFoundException;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,6 +16,8 @@ import java.util.List;
 public class PatientBOImpl implements PatientBO {
 
     PatientDAO patientDAO = (PatientDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.PATIENT);
+    QueryDAO queryDAO = (QueryDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.QUERY);
+
     @Override
     public boolean save(PatientDTO patientDTO) throws IOException, SQLException {
         System.out.println("PatientBOImpl Saving ID: " + patientDTO.getPatientId()); // Debugging
@@ -58,13 +60,13 @@ public class PatientBOImpl implements PatientBO {
     }
 
     @Override
-    public PatientDTO findById(String patientId) throws SQLException, ClassNotFoundException {
+    public PatientDTO findById(String patientId) throws SQLException, ClassNotFoundException, java.lang.ClassNotFoundException {
         Patient patient = patientDAO.findById(patientId);
         return new PatientDTO(patient.getPatientId(), patient.getName(), patient.getAge(), patient.getContactNumber(), patient.getMedicalHistory());
     }
 
     @Override
-    public ArrayList<String> getAllPatientIds() throws SQLException, ClassNotFoundException, IOException {
+    public ArrayList<String> getAllPatientIds() throws SQLException, ClassNotFoundException, IOException, java.lang.ClassNotFoundException {
         ArrayList<String> allIds = new ArrayList<>();
         ArrayList<String>all = patientDAO.getAllPatientIDs();
         for(String p: all){
@@ -75,13 +77,31 @@ public class PatientBOImpl implements PatientBO {
     }
 
     @Override
-    public int getTotalPatients() throws SQLException, ClassNotFoundException, IOException {
+    public int getTotalPatients() throws SQLException, ClassNotFoundException, IOException, java.lang.ClassNotFoundException {
         return patientDAO.getTotalPatients();
     }
 
     @Override
     public List<Object[]> getPatientsBySessionId(String sessionId) throws SQLException, ClassNotFoundException, IOException {
         return List.of();
+    }
+
+    @Override
+    public List<PatientDTO> getPatientsEnrolledInPrograms() throws IOException {
+        List<Patient> patients = queryDAO.getPatientsEnrolledInPrograms();
+        List<PatientDTO> patientDTOS = new ArrayList<>();
+
+        for (Patient patient : patients) {
+            PatientDTO patientDTO = new PatientDTO();
+            patientDTO.setPatientId(patient.getPatientId());
+            patientDTO.setName(patient.getName());
+            patientDTO.setAge(Integer.parseInt(String.valueOf(patient.getAge())));
+            patientDTO.setContactNumber(patient.getContactNumber());
+            patientDTO.setMedicalHistory(patient.getMedicalHistory());
+
+            patientDTOS.add(patientDTO);
+        }
+        return patientDTOS;
     }
 
 }

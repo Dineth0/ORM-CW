@@ -19,8 +19,8 @@ import javafx.stage.Window;
 import lk.ijse.gdse.ormcw.bo.BOFactory;
 import lk.ijse.gdse.ormcw.bo.custom.PatientBO;
 import lk.ijse.gdse.ormcw.dto.PatientDTO;
+import lk.ijse.gdse.ormcw.entity.Patient;
 import lk.ijse.gdse.ormcw.tm.PatientTM;
-import lk.ijse.gdse.ormcw.tm.UserTM;
 import lk.ijse.gdse.ormcw.util.Regex;
 
 import java.io.IOException;
@@ -28,10 +28,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class PatientFormController implements Initializable {
 
@@ -296,6 +293,31 @@ public class PatientFormController implements Initializable {
         stage.initOwner(underWindow);
 
         stage.showAndWait();
+    }
+    @FXML
+    void PatientProgramEnrolledOnAction(ActionEvent event) throws IOException {
+        List<PatientDTO> patients = patientBO.getPatientsEnrolledInPrograms();
+
+        if(patients.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "No Patients for All Programs");
+
+        }else {
+            ObservableList<PatientTM> patientTMs = FXCollections.observableArrayList();
+
+            for (PatientDTO patientDTO : patients) {
+                PatientTM patientTM = new PatientTM(
+                        patientDTO.getPatientId(),
+                        patientDTO.getName(),
+                        patientDTO.getAge(),
+                        patientDTO.getContactNumber(),
+                        patientDTO.getMedicalHistory()
+
+
+                );
+                patientTMs.add(patientTM);
+            }
+            PatientTable.setItems(patientTMs);
+        }
     }
     @FXML
     void txtAgeKeyReleased(KeyEvent event) {

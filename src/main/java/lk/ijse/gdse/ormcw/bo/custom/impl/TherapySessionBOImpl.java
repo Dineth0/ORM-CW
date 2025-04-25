@@ -1,6 +1,5 @@
 package lk.ijse.gdse.ormcw.bo.custom.impl;
 
-import lk.ijse.gdse.ormcw.bo.custom.TherapistBO;
 import lk.ijse.gdse.ormcw.bo.custom.TherapySessionBO;
 import lk.ijse.gdse.ormcw.config.FactoryConfiguration;
 import lk.ijse.gdse.ormcw.dao.DAOFactory;
@@ -9,7 +8,6 @@ import lk.ijse.gdse.ormcw.dao.custom.TherapistDAO;
 import lk.ijse.gdse.ormcw.dao.custom.TherapySessionDAO;
 import lk.ijse.gdse.ormcw.dto.TherapySessionDTO;
 import lk.ijse.gdse.ormcw.entity.Patient;
-import lk.ijse.gdse.ormcw.entity.Patient_Registration;
 import lk.ijse.gdse.ormcw.entity.Therapist;
 import lk.ijse.gdse.ormcw.entity.Therapy_Session;
 import org.hibernate.Session;
@@ -70,7 +68,7 @@ public class TherapySessionBOImpl implements TherapySessionBO {
 
 
     @Override
-    public String getNextId() throws SQLException, IOException {
+    public String getNextId() throws SQLException, IOException, lk.ijse.gdse.ormcw.bo.exception.ClassNotFoundException {
         return therapySessionDAO.getNextId();
     }
 

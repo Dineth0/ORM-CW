@@ -12,11 +12,8 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.gdse.ormcw.bo.BOFactory;
 import lk.ijse.gdse.ormcw.bo.custom.TherapistBO;
 import lk.ijse.gdse.ormcw.bo.custom.TherapyProgramBO;
-import lk.ijse.gdse.ormcw.dto.PatientDTO;
 import lk.ijse.gdse.ormcw.dto.TherapistDTO;
 import lk.ijse.gdse.ormcw.dto.TherapyProgramDTO;
-import lk.ijse.gdse.ormcw.dto.UserDTO;
-import lk.ijse.gdse.ormcw.tm.PatientTM;
 import lk.ijse.gdse.ormcw.tm.TherapistTM;
 import lk.ijse.gdse.ormcw.util.Regex;
 

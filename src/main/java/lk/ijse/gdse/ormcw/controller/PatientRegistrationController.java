@@ -18,11 +18,7 @@ import lk.ijse.gdse.ormcw.bo.custom.TherapyProgramBO;
 import lk.ijse.gdse.ormcw.dto.PatientDTO;
 import lk.ijse.gdse.ormcw.dto.PatientRegistrationDTO;
 import lk.ijse.gdse.ormcw.dto.TherapyProgramDTO;
-import lk.ijse.gdse.ormcw.dto.TherapySessionDTO;
-import lk.ijse.gdse.ormcw.entity.Patient_Registration;
-import lk.ijse.gdse.ormcw.entity.TherapyProgram;
 import lk.ijse.gdse.ormcw.tm.PatientRegistrationTM;
-import lk.ijse.gdse.ormcw.tm.TherapySessionTM;
 import lk.ijse.gdse.ormcw.util.Regex;
 
 import java.io.IOException;

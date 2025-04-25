@@ -2,7 +2,6 @@ package lk.ijse.gdse.ormcw.bo.custom;
 
 import lk.ijse.gdse.ormcw.bo.SuperBO;
 import lk.ijse.gdse.ormcw.dto.TherapySessionDTO;
-import lk.ijse.gdse.ormcw.dto.UserDTO;
 import lk.ijse.gdse.ormcw.entity.Therapy_Session;
 
 import java.io.IOException;
