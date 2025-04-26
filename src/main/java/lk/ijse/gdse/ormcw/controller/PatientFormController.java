@@ -139,10 +139,10 @@ public class PatientFormController implements Initializable {
             boolean isDelete = patientBO.delete(ID);
             if (isDelete) {
                 refreshPage();
-                new Alert(Alert.AlertType.INFORMATION, "Labor deleted...!").show();
+                new Alert(Alert.AlertType.INFORMATION, "Patient deleted...!").show();
 
             } else {
-                new Alert(Alert.AlertType.ERROR, "Fail to delete Labor...!").show();
+                new Alert(Alert.AlertType.ERROR, "Fail to delete Patient...!").show();
 
             }
         }
@@ -177,7 +177,7 @@ public class PatientFormController implements Initializable {
 
                 boolean isSaved = patientBO.save(patientDTO);
                 if (isSaved) {
-                    new Alert(Alert.AlertType.INFORMATION, "User Saved SUCCESSFULLY 😎").show();
+                    new Alert(Alert.AlertType.INFORMATION, "Patient Saved SUCCESSFULLY 😎").show();
                     refreshPage();
                 } else {
                     new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
@@ -229,7 +229,7 @@ public class PatientFormController implements Initializable {
                 boolean isUpdated = patientBO.update(patientDTO);
                 if (isUpdated) {
                     refreshPage();
-                    new Alert(Alert.AlertType.INFORMATION, "User Saved SUCCESSFULLY 😎").show();
+                    new Alert(Alert.AlertType.INFORMATION, "Patient Saved SUCCESSFULLY 😎").show();
 
                 } else {
                     new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();

@@ -167,7 +167,7 @@ public class TherapySessionController implements Initializable {
             searchController = loader.getController();
         } catch (Exception e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Fail to load LeaveID").show();
+            new Alert(Alert.AlertType.ERROR, "Fail to load Session ID").show();
         }
 
     }
@@ -244,7 +244,7 @@ public class TherapySessionController implements Initializable {
 
                 if (isRegistered) {
                     refreshPage();  // UI එක refresh කරන්න
-                    new Alert(Alert.AlertType.INFORMATION, "User Saved SUCCESSFULLY 😎").show();
+                    new Alert(Alert.AlertType.INFORMATION, "Session Saved SUCCESSFULLY 😎").show();
                 } else {
                     new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
                 }
@@ -302,7 +302,7 @@ public class TherapySessionController implements Initializable {
 
                 if (isRegistered) {
                     refreshPage();
-                    new Alert(Alert.AlertType.INFORMATION, "User Saved SUCCESSFULLY 😎").show();
+                    new Alert(Alert.AlertType.INFORMATION, "Session Saved SUCCESSFULLY 😎").show();
                 } else {
                     new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
                 }

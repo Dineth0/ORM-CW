@@ -18,8 +18,7 @@ public class PaymentDAOImpl implements PaymentDAO {
     public String getNextId() throws SQLException, IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
-        String hql = "SELECT l.paymentId FROM Payment l ORDER BY l.paymentId DESC";
-        Query<String> query = session.createQuery(hql);
+        Query<String> query = session.createQuery("SELECT l.paymentId FROM Payment l ORDER BY l.paymentId DESC");
         query.setMaxResults(1);
         String lastId = query.uniqueResult();
 
@@ -102,8 +101,7 @@ public class PaymentDAOImpl implements PaymentDAO {
     public double getPreviousTotalAmount(String patientId) throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
-        String hql = "FROM Payment p WHERE p.patient.patientId = :patientId ORDER BY paymentId DESC";
-        Query<Payment> query = session.createQuery(hql, Payment.class);
+        Query<Payment> query = session.createQuery("FROM Payment p WHERE p.patient.patientId = :patientId ORDER BY paymentId DESC", Payment.class);
         query.setParameter("patientId", patientId);
         query.setMaxResults(1);
 

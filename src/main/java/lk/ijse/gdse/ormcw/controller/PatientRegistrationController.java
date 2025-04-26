@@ -121,7 +121,7 @@ public class PatientRegistrationController implements Initializable {
             refreshPage();
         } catch (Exception e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Fail to load LeaveID").show();
+            new Alert(Alert.AlertType.ERROR, "Fail to load Registration ID").show();
         }
     }
 
@@ -236,38 +236,38 @@ public class PatientRegistrationController implements Initializable {
         }
     }
 
-    @FXML
-    void UpdateOnAction(ActionEvent event) {
-        String registrationId = lblid.getText();
-        String patientId = combopatientid.getValue();
-        String programId = comboprogramId.getValue();
-        String registrationDate = lbldate.getText();
-        double registerFee = Double.parseDouble(txtfee.getText());
-
-        double amount = Double.parseDouble(lblamount.getText());
-
-        double balance = amount-registerFee;
-
-        try{
-            PatientRegistrationDTO patientRegistrationDTO = new PatientRegistrationDTO(
-                    registrationId,patientId,programId,registrationDate,registerFee,balance
-            );
-            boolean isRegistered = patientRegistrationBO.update(patientRegistrationDTO);
-
-            if (isRegistered) {
-                refreshPage();  // UI එක refresh කරන්න
-                new Alert(Alert.AlertType.INFORMATION, "PatientRegistration Updated SUCCESSFULLY 😎").show();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
-            }
-        } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR, "Duplicate ID").show();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    @FXML
+//    void UpdateOnAction(ActionEvent event) {
+//        String registrationId = lblid.getText();
+//        String patientId = combopatientid.getValue();
+//        String programId = comboprogramId.getValue();
+//        String registrationDate = lbldate.getText();
+//        double registerFee = Double.parseDouble(txtfee.getText());
+//
+//        double amount = Double.parseDouble(lblamount.getText());
+//
+//        double balance = amount-registerFee;
+//
+//        try{
+//            PatientRegistrationDTO patientRegistrationDTO = new PatientRegistrationDTO(
+//                    registrationId,patientId,programId,registrationDate,registerFee,balance
+//            );
+//            boolean isRegistered = patientRegistrationBO.update(patientRegistrationDTO);
+//
+//            if (isRegistered) {
+//                refreshPage();  // UI එක refresh කරන්න
+//                new Alert(Alert.AlertType.INFORMATION, "PatientRegistration Updated SUCCESSFULLY 😎").show();
+//            } else {
+//                new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
+//            }
+//        } catch (IOException e) {
+//            new Alert(Alert.AlertType.ERROR, "Duplicate ID").show();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        } catch (ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
     private void loadProgramIDs() throws SQLException, ClassNotFoundException, IOException {
         ArrayList<String> programIds = therapyProgramBO.getAllProgramIDs();
         comboprogramId.getItems().addAll(programIds);

@@ -50,7 +50,7 @@ public class PaymentSearchController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colid.setCellValueFactory(new PropertyValueFactory<>("patientId"));
-        colid.setCellValueFactory(new PropertyValueFactory<>("paymentId"));
+        colpayment.setCellValueFactory(new PropertyValueFactory<>("paymentId"));
         colamount.setCellValueFactory(new PropertyValueFactory<>("amount"));
         coldate.setCellValueFactory(new PropertyValueFactory<>("paymentDate"));
         colstatus.setCellValueFactory(new PropertyValueFactory<>("status"));

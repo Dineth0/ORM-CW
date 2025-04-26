@@ -124,10 +124,10 @@ public class TherapistManageController  implements Initializable {
                         boolean isDelete = therapistBO.delete(ID);
                         if (isDelete) {
                                 refreshPage();
-                                new Alert(Alert.AlertType.INFORMATION, "Labor deleted...!").show();
+                                new Alert(Alert.AlertType.INFORMATION, "Therapist deleted...!").show();
 
                         } else {
-                                new Alert(Alert.AlertType.ERROR, "Fail to delete Labor...!").show();
+                                new Alert(Alert.AlertType.ERROR, "Fail to delete Therapist...!").show();
 
                         }
                 }
@@ -152,7 +152,7 @@ public class TherapistManageController  implements Initializable {
                                 boolean isRegistered = therapistBO.save(new TherapistDTO(therapistId, therapistName, specialization, contactNumber, programId));
                                 if (isRegistered) {
                                         refreshPage();
-                                        new Alert(Alert.AlertType.INFORMATION, "User Saved SUCCESSFULLY 😎").show();
+                                        new Alert(Alert.AlertType.INFORMATION, "Therapist Saved SUCCESSFULLY 😎").show();
 
                                 } else {
                                         new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
@@ -197,7 +197,7 @@ public class TherapistManageController  implements Initializable {
                                 boolean isRegistered = therapistBO.update(new TherapistDTO(therapistId, therapistName, specialization, contactNumber, programId));
                                 if (isRegistered) {
                                         refreshPage();
-                                        new Alert(Alert.AlertType.INFORMATION, "User Saved SUCCESSFULLY 😎").show();
+                                        new Alert(Alert.AlertType.INFORMATION, "Therapist Saved SUCCESSFULLY 😎").show();
 
                                 } else {
                                         new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
