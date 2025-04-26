@@ -110,7 +110,6 @@ public class PatientRegistrationController implements Initializable {
         colpatid.setCellValueFactory(new PropertyValueFactory<>("patientId"));
         colproid.setCellValueFactory(new PropertyValueFactory<>("programId"));
         coldate.setCellValueFactory(new PropertyValueFactory<>("registrationDate"));
-        colcount.setCellValueFactory(new PropertyValueFactory<>("sessionCount"));
         colfee.setCellValueFactory(new PropertyValueFactory<>("registerFee"));
         colbalance.setCellValueFactory(new PropertyValueFactory<>("balance"));
 
@@ -226,7 +225,7 @@ public class PatientRegistrationController implements Initializable {
             combopatientid.setValue(patientRegistrationTM.getPatientId());
             comboprogramId.setValue(patientRegistrationTM.getProgramId());
             lbldate.setText(String.valueOf(patientRegistrationTM.getRegistrationDate()));
-            lblcount.setText(String.valueOf(patientRegistrationTM.getSessionCount()));
+
             txtfee.setText(String.valueOf(patientRegistrationTM.getRegisterFee()));
 
 
@@ -294,7 +293,6 @@ public class PatientRegistrationController implements Initializable {
                                         registrationDTO.getPatientId(),
                                         registrationDTO.getProgramId(),
                         registrationDTO.getRegistrationDate(),
-                        registrationDTO.getSessionCount(),
                         registrationDTO.getRegisterFee(),
                         registrationDTO.getBalance()
                                 ));
@@ -324,7 +322,7 @@ public class PatientRegistrationController implements Initializable {
         lblpatientid.setText("");
         lblprogramid.setText("");
         lbldate.setText("");
-        lblcount.setText("");
+
 
 
     }

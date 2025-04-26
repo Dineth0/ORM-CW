@@ -15,7 +15,6 @@ public class PatientRegistrationDTO {
     private String patientId;
     private String programId;
     private Date registrationDate;
-    private int sessionCount;
     private double registerFee;
     private double balance;
 

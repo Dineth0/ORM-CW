@@ -39,12 +39,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btnupdate" layoutX="245.0" layoutY="314.0" mnemonicParsing="false" onAction="#UpdateOnAction" prefHeight="31.0" prefWidth="123.0" style="-fx-background-color: #FFB8E0;" text="UPDATE">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="btndelete" layoutX="428.0" layoutY="311.0" mnemonicParsing="false" onAction="#DeleteOnAction" prefHeight="31.0" prefWidth="123.0" style="-fx-background-color: #FFB8E0;" text="DELETE">
+      <Button fx:id="btnupdate" layoutX="332.0" layoutY="314.0" mnemonicParsing="false" onAction="#UpdateOnAction" prefHeight="31.0" prefWidth="123.0" style="-fx-background-color: #FFB8E0;" text="UPDATE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -60,9 +55,8 @@
             <TableColumn fx:id="coldate" prefWidth="131.3333511352539" text="SessionDate" />
             <TableColumn fx:id="coltime" prefWidth="129.9999542236328" text="SessionTime" />
             <TableColumn fx:id="colstatus" prefWidth="140.6666259765625" text="status" />
-            <TableColumn fx:id="colpatientid" prefWidth="81.33334350585938" text="PatientId" />
-            <TableColumn fx:id="coltherapist" prefWidth="78.66668701171875" text="TherapistId" />
-            <TableColumn fx:id="colpayment" prefWidth="112.66668701171875" text="Payment" />
+            <TableColumn fx:id="colpatientid" prefWidth="147.33331298828125" text="PatientId" />
+            <TableColumn fx:id="coltherapist" prefWidth="128.00006103515625" text="TherapistId" />
          </columns>
       </TableView>
       <Label fx:id="lblid" layoutX="199.0" layoutY="48.0" prefHeight="31.0" prefWidth="320.0" text="1">
@@ -70,7 +64,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lblstatus" layoutX="376.0" layoutY="161.0" prefHeight="31.0" prefWidth="162.0">
+      <Label fx:id="lblstatus" layoutX="385.0" layoutY="161.0" prefHeight="31.0" prefWidth="162.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -80,7 +74,7 @@
             <Image url="@images/save.png" />
          </image>
       </ImageView>
-      <TextField fx:id="txttime" layoutX="199.0" layoutY="125.0" onKeyReleased="#txtTimeKeyReleasedOnAction" prefHeight="25.0" prefWidth="320.0" style="-fx-opacity: 0.7;" />
+      <TextField fx:id="txttime" layoutX="199.0" layoutY="125.0" onKeyReleased="#txtTimeKeyReleasedOnAction" prefHeight="25.0" prefWidth="175.0" style="-fx-opacity: 0.5;" />
       <Label layoutX="44.0" layoutY="160.0" prefHeight="31.0" prefWidth="111.0" text="Status">
          <font>
             <Font name="System Bold" size="14.0" />
@@ -93,45 +87,39 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <DatePicker fx:id="datepicker" layoutX="199.0" layoutY="85.0" onAction="#DatePickerOnAction" style="-fx-opacity: 0.7;" />
-      <ComboBox fx:id="combostatus" layoutX="199.0" layoutY="162.0" onAction="#ComboStatusOnAction" prefWidth="150.0" style="-fx-opacity: 0.7;" />
-      <ComboBox fx:id="combotherapistId" layoutX="199.0" layoutY="235.0" onAction="#ComboTherapistIdOnAction" prefWidth="150.0" style="-fx-opacity: 0.7;" />
-      <Label fx:id="lbldate" layoutX="396.0" layoutY="83.0" prefHeight="31.0" prefWidth="162.0">
+      <DatePicker fx:id="datepicker" layoutX="199.0" layoutY="85.0" onAction="#DatePickerOnAction" style="-fx-opacity: 0.5;" />
+      <ComboBox fx:id="combostatus" layoutX="199.0" layoutY="162.0" onAction="#ComboStatusOnAction" prefHeight="25.0" prefWidth="175.0" style="-fx-opacity: 0.5;" />
+      <ComboBox fx:id="combotherapistId" layoutX="199.0" layoutY="235.0" onAction="#ComboTherapistIdOnAction" prefHeight="25.0" prefWidth="175.0" style="-fx-opacity: 0.5;" />
+      <Label fx:id="lbldate" layoutX="386.0" layoutY="84.0" prefHeight="31.0" prefWidth="162.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="combopatientid" layoutX="199.0" layoutY="199.0" onAction="#ComboPatientIdOnAction" prefWidth="150.0" style="-fx-opacity: 0.7;" />
+      <ComboBox fx:id="combopatientid" layoutX="199.0" layoutY="199.0" onAction="#ComboPatientIdOnAction" prefHeight="25.0" prefWidth="175.0" style="-fx-opacity: 0.5;" />
       <Label layoutX="42.0" layoutY="197.0" prefHeight="31.0" prefWidth="111.0" text="PatientID">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lblpatientname" layoutX="368.0" layoutY="201.0" prefHeight="31.0" prefWidth="348.0">
+      <Label fx:id="lblpatientname" layoutX="379.0" layoutY="201.0" prefHeight="31.0" prefWidth="192.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lbltherapistname" layoutX="370.0" layoutY="232.0" prefHeight="31.0" prefWidth="348.0">
+      <Label fx:id="lbltherapistname" layoutX="380.0" layoutY="232.0" prefHeight="31.0" prefWidth="175.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txtsearch" layoutX="424.0" layoutY="20.0" prefHeight="25.0" prefWidth="192.0" promptText="Search" style="-fx-opacity: 0.7;" />
-      <Button fx:id="btnsearch" layoutX="636.0" layoutY="16.0" mnemonicParsing="false" onAction="#SearchOnAction" prefHeight="31.0" prefWidth="123.0" style="-fx-background-color: #FFB8E0;" text="SEARCH">
+      <TextField fx:id="txtsearch" layoutX="424.0" layoutY="57.0" prefHeight="25.0" prefWidth="192.0" promptText="Search" style="-fx-opacity: 0.7;" />
+      <Button fx:id="btnsearch" layoutX="636.0" layoutY="54.0" mnemonicParsing="false" onAction="#SearchOnAction" prefHeight="31.0" prefWidth="123.0" style="-fx-background-color: #FFB8E0;" text="SEARCH">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Label layoutX="45.0" layoutY="271.0" prefHeight="31.0" prefWidth="111.0" text="Payment">
+      <Label alignment="CENTER" layoutX="-2.0" layoutY="-3.0" prefHeight="47.0" prefWidth="799.0" style="-fx-background-color: #410445;" text="Payment" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <ComboBox fx:id="combopayment" layoutX="197.0" layoutY="275.0" onAction="#ComboPaymentOnAction" prefWidth="150.0" style="-fx-opacity: 0.7;" />
-      <Label fx:id="lblpayment" layoutX="367.0" layoutY="270.0" prefHeight="31.0" prefWidth="348.0">
-         <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="Bodoni MT Bold Italic" size="28.0" />
          </font>
       </Label>
    </children>

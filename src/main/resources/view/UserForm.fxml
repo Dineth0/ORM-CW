@@ -19,22 +19,22 @@
             <Image url="@images/mental-modified.png" />
          </image>
       </ImageView>
-      <Label layoutX="50.0" layoutY="48.0" prefHeight="31.0" prefWidth="101.0" text="UserID">
+      <Label layoutX="50.0" layoutY="71.0" prefHeight="31.0" prefWidth="101.0" text="UserID">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="47.0" layoutY="92.0" prefHeight="31.0" prefWidth="101.0" text="Name">
+      <Label layoutX="47.0" layoutY="125.0" prefHeight="31.0" prefWidth="101.0" text="Name">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="43.0" layoutY="146.0" prefHeight="31.0" prefWidth="111.0" text="Password">
+      <Label layoutX="43.0" layoutY="182.0" prefHeight="31.0" prefWidth="111.0" text="Password">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txtname" layoutX="199.0" layoutY="94.0" onKeyReleased="#txtnameKeyRelaesedOnAction" prefHeight="25.0" prefWidth="320.0" style="-fx-opacity: 0.7;" />
+      <TextField fx:id="txtname" layoutX="199.0" layoutY="127.0" onKeyReleased="#txtnameKeyRelaesedOnAction" prefHeight="25.0" prefWidth="320.0" style="-fx-opacity: 0.7;" />
       <Button fx:id="btnsave" layoutX="59.0" layoutY="314.0" mnemonicParsing="false" onAction="#SaveOnAction" prefHeight="31.0" prefWidth="123.0" style="-fx-background-color: #FFB8E0;" text="SAVE">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -63,7 +63,7 @@
             <TableColumn fx:id="colrole" prefWidth="119.33331298828125" text="Role" />
          </columns>
       </TableView>
-      <Label fx:id="lblid" layoutX="199.0" layoutY="48.0" prefHeight="31.0" prefWidth="320.0" text="1">
+      <Label fx:id="lblid" layoutX="199.0" layoutY="68.0" prefHeight="31.0" prefWidth="320.0" text="1">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -73,7 +73,7 @@
             <Image url="@images/save.png" />
          </image>
       </ImageView>
-      <Label layoutX="44.0" layoutY="205.0" prefHeight="31.0" prefWidth="111.0" text="Role">
+      <Label layoutX="44.0" layoutY="231.0" prefHeight="31.0" prefWidth="111.0" text="Role">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -88,12 +88,17 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="rolecombo" layoutX="199.0" layoutY="207.0" onAction="#CpmboBoxOnAction" prefHeight="25.0" prefWidth="171.0" style="-fx-opacity: 0.7;" />
+      <ComboBox fx:id="rolecombo" layoutX="199.0" layoutY="236.0" onAction="#CpmboBoxOnAction" prefHeight="25.0" prefWidth="171.0" style="-fx-opacity: 0.7;" />
       <Label fx:id="lblrole" layoutX="381.0" layoutY="205.0" prefHeight="31.0" prefWidth="146.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <PasswordField fx:id="txtpassword" layoutX="199.0" layoutY="150.0" onKeyReleased="#txtpasswordKeyRelaesedOnAction" prefHeight="25.0" prefWidth="320.0" style="-fx-opacity: 0.7;" />
+      <PasswordField fx:id="txtpassword" layoutX="199.0" layoutY="183.0" onKeyReleased="#txtpasswordKeyRelaesedOnAction" prefHeight="25.0" prefWidth="320.0" style="-fx-opacity: 0.7;" />
+      <Label alignment="CENTER" layoutX="-4.0" layoutY="-1.0" prefHeight="53.0" prefWidth="799.0" style="-fx-background-color: #410445;" text="Users" textFill="WHITE">
+         <font>
+            <Font name="Bodoni MT Bold Italic" size="28.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

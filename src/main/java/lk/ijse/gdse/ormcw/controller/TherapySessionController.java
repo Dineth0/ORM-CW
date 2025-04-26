@@ -15,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import lk.ijse.gdse.ormcw.bo.BOFactory;
 import lk.ijse.gdse.ormcw.bo.custom.PatientBO;
 import lk.ijse.gdse.ormcw.bo.custom.TherapistBO;
@@ -120,6 +121,9 @@ public class TherapySessionController implements Initializable {
     private Label lbltherapistname;
 
     @FXML
+    private Button btnpayment;
+
+    @FXML
     private Label lblpayment;
 
     @FXML
@@ -143,14 +147,13 @@ public class TherapySessionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         combostatus.getItems().addAll(Status);
-        combopayment.getItems().addAll(payment);
+
         colid.setCellValueFactory(new PropertyValueFactory<>("sessionId"));
         coldate.setCellValueFactory(new PropertyValueFactory<>("sessionDate"));
         coltime.setCellValueFactory(new PropertyValueFactory<>("sessionTime"));
         colstatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         coltherapist.setCellValueFactory(new PropertyValueFactory<>("therapistId"));
         colpatientid.setCellValueFactory(new PropertyValueFactory<>("patientId"));
-        colpayment.setCellValueFactory(new PropertyValueFactory<>("payment"));
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Search.fxml"));
 
@@ -186,11 +189,11 @@ public class TherapySessionController implements Initializable {
 
     }
 
-    @FXML
-    void ComboPaymentOnAction(ActionEvent event) {
-        String SelectedValue = combopayment.getValue();
-        lblpayment.setText(SelectedValue);
-    }
+//    @FXML
+//    void ComboPaymentOnAction(ActionEvent event) {
+//        String SelectedValue = combopayment.getValue();
+//        lblpayment.setText(SelectedValue);
+//    }
 
     @FXML
     void ComboTherapistIdOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
@@ -230,27 +233,28 @@ public class TherapySessionController implements Initializable {
         String status = combostatus.getValue();
         String therapistId = combotherapistId.getValue();
         String patientId = combopatientid.getValue();
-        String payment = combopayment.getValue();
 
-        try {
-            TherapySessionDTO therapySessionDTO = new TherapySessionDTO(
-                    sessionId, sessionDate, sessionTime, status, therapistId, patientId,payment
-            );
+        if(isValid()) {
+            try {
+                TherapySessionDTO therapySessionDTO = new TherapySessionDTO(
+                        sessionId, sessionDate, sessionTime, status, therapistId, patientId
+                );
 
-            boolean isRegistered = therapySessionBO.save(therapySessionDTO);
+                boolean isRegistered = therapySessionBO.save(therapySessionDTO);
 
-            if (isRegistered) {
-                refreshPage();  // UI එක refresh කරන්න
-                new Alert(Alert.AlertType.INFORMATION, "User Saved SUCCESSFULLY 😎").show();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
+                if (isRegistered) {
+                    refreshPage();  // UI එක refresh කරන්න
+                    new Alert(Alert.AlertType.INFORMATION, "User Saved SUCCESSFULLY 😎").show();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
+                }
+            } catch (IOException e) {
+                new Alert(Alert.AlertType.ERROR, "Duplicate ID").show();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
-        } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR, "Duplicate ID").show();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -265,11 +269,11 @@ public class TherapySessionController implements Initializable {
             combostatus.setValue(therapySessionTM.getStatus());
             combopatientid.setValue(therapySessionTM.getPatientId());
             combotherapistId.setValue(therapySessionTM.getTherapistId());
-            combopayment.setValue(therapySessionTM.getPayment());
 
 
 
-            btndelete.setDisable(false);
+
+
             btnsave.setDisable(true);
             btnupdate.setDisable(false);
         }
@@ -286,28 +290,29 @@ public class TherapySessionController implements Initializable {
         String status = combostatus.getValue();
         String therapistId = combotherapistId.getValue();
         String patientId = combopatientid.getValue();
-        String payment = combopayment.getValue();
 
 
-        try {
-            TherapySessionDTO therapySessionDTO = new TherapySessionDTO(
-                    sessionId, sessionDate, sessionTime, status, therapistId, patientId, payment
-            );
+        if(isValid()) {
+            try {
+                TherapySessionDTO therapySessionDTO = new TherapySessionDTO(
+                        sessionId, sessionDate, sessionTime, status, therapistId, patientId
+                );
 
-            boolean isRegistered = therapySessionBO.update(therapySessionDTO);
+                boolean isRegistered = therapySessionBO.update(therapySessionDTO);
 
-            if (isRegistered) {
-                refreshPage();
-                new Alert(Alert.AlertType.INFORMATION, "User Saved SUCCESSFULLY 😎").show();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
+                if (isRegistered) {
+                    refreshPage();
+                    new Alert(Alert.AlertType.INFORMATION, "User Saved SUCCESSFULLY 😎").show();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN 😥").show();
+                }
+            } catch (IOException e) {
+                new Alert(Alert.AlertType.ERROR, "Duplicate ID").show();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
-        } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR, "Duplicate ID").show();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
     }
     private void loadTherapistIDs() throws SQLException, ClassNotFoundException, IOException {
@@ -333,8 +338,7 @@ public class TherapySessionController implements Initializable {
                     therapySessionDTO.getSessionTime(),
                     therapySessionDTO.getStatus(),
                     therapySessionDTO.getTherapistId(),
-                    therapySessionDTO.getPatientId(),
-                    therapySessionDTO.getPayment()
+                    therapySessionDTO.getPatientId()
 
 
             );
@@ -346,7 +350,7 @@ public class TherapySessionController implements Initializable {
         LoadNextID();
         loadTableData();
 
-        btndelete.setDisable(true);
+
         btnsave.setDisable(false);
         btnupdate.setDisable(true);
 
@@ -355,8 +359,8 @@ public class TherapySessionController implements Initializable {
         lblstatus.setText("");
         lbltherapistname.setText("");
         lblpatientname.setText("");
-        lblpayment.setText("");
-        combopayment.setValue("");
+
+
     }
 
     public void SearchOnAction(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
@@ -390,8 +394,7 @@ public class TherapySessionController implements Initializable {
                         session.getSessionTime(),
                         session.getStatus(),
                         session.getTherapist().getTherapistId(),
-                        session.getPatient().getPatientId(),
-                        session.getPayment()
+                        session.getPatient().getPatientId()
                 ));
             }
 
@@ -432,8 +435,27 @@ public class TherapySessionController implements Initializable {
         Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.TIME,txttime);
 
     }
+    public boolean isValid(){
+        if(!Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.TIME, txttime)) return false;
+
+        return true;
+    }
 
 
+    public void PaymentOnAction(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Paymentwindow.fxml"));
+        Parent load = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(load));
+        stage.setTitle("Registration");
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+        Window underWindow = btnpayment.getScene().getWindow();
+        stage.initOwner(underWindow);
+
+        stage.showAndWait();
+    }
 }
 
 

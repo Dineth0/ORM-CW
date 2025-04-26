@@ -56,8 +56,7 @@ public class TherapistSearchController implements Initializable {
                     dto.getSessionTime(),
                     dto.getStatus(),
                     dto.getTherapistId(),
-                    dto.getPatientId(),
-                    ""//dto.getPayment()
+                    dto.getPatientId()
             ));
         }
         ThearapistSearchTable.setItems(sessionList);

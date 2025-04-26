@@ -45,8 +45,7 @@ public class TherapySessionBOImpl implements TherapySessionBO {
                     therapySessionDTO.getSessionTime(),
                     therapySessionDTO.getStatus(),
                     therapist,
-                    patient,
-                    therapySessionDTO.getPayment()
+                    patient
             );
 
             boolean isSaved = therapySessionDAO.save(therapySession);
@@ -93,7 +92,7 @@ public class TherapySessionBOImpl implements TherapySessionBO {
             } else {
                 therapySessionDTO.setPatientId("N/A");
             }
-            therapySessionDTO.setPayment(therapy_session.getPayment());
+
             therapySessionDTOS.add(therapySessionDTO);
         }
         return therapySessionDTOS;
@@ -117,8 +116,7 @@ public class TherapySessionBOImpl implements TherapySessionBO {
                 therapySessionDTO.getSessionTime(),
                 therapySessionDTO.getStatus(),
                 therapist,
-                patient,
-                therapySessionDTO.getPayment()
+                patient
         );
 
         return therapySessionDAO.update(therapySession);
@@ -154,6 +152,11 @@ public class TherapySessionBOImpl implements TherapySessionBO {
         }else {
             return null;
         }
+    }
+
+    @Override
+    public Therapy_Session findLastSessionByPatientId(String patientId) throws SQLException, ClassNotFoundException, IOException {
+       return therapySessionDAO.findLastSessionByPatientId(patientId);
     }
 
 }

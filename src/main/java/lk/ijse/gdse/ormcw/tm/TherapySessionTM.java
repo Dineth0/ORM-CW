@@ -16,7 +16,7 @@ public class TherapySessionTM {
     private String status;
     private String therapistId;
     private String patientId;
-    private String payment;
+
 
 
 }

@@ -10,7 +10,7 @@ public class Regex {
             case AGE -> "^[1-9][0-9]?$";
             case TEL -> "^[0]([1-9]{2})([0-9]){7}$";
             case DURATION -> "\\d{1,2}\\s?(month|year)s?";
-            case TIME -> "^(0[1-9]|1[0-2]):[0-5][0-9]\\s?(AM|PM)$\n";
+            case TIME -> "^([0-1]?[0-9]|2[0-3]):[0-5][0-9] (AM|PM)$";
 
             case FEE -> "^([0-9]){1,}[.]([0-9]){1,}$";
             case PASSWORD -> "^(?! *$)[^\\s]+$";

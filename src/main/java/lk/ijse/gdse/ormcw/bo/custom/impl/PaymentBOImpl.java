@@ -44,7 +44,9 @@ public class PaymentBOImpl implements PaymentBO {
                     paymentDTO.getAmount(),
                     paymentDTO.getPaymentDate(),
                     paymentDTO.getStatus(),
-                    paymentDTO.getTotalAmount()
+                    paymentDTO.getTotalAmount(),
+                    String.valueOf(paymentDTO.getSessionDate()),
+                    paymentDTO.getSessionTime()
             );
             session.save(payment);
 
@@ -98,6 +100,8 @@ public class PaymentBOImpl implements PaymentBO {
             paymentDTO.setPaymentDate(payment.getPaymentDate());
             paymentDTO.setStatus(payment.getStatus());
             paymentDTO.setTotalAmount(payment.getTotalAmount());
+            paymentDTO.setSessionDate(payment.getSessionDate());
+            paymentDTO.setSessionTime(payment.getSessionTime());
             paymentDTOS.add(paymentDTO);
         }
         return paymentDTOS;
@@ -105,21 +109,24 @@ public class PaymentBOImpl implements PaymentBO {
 
     @Override
     public boolean update(PaymentDTO paymentDTO) throws IOException, SQLException {
-        Session session = FactoryConfiguration.getInstance().getSession();
-
-        Patient patient = session.get(Patient.class, paymentDTO.getPatientId());
-        if (patient == null) {
-            return false;
-        }
-        Payment payment = new Payment(
-                paymentDTO.getPaymentId(),
-                patient,
-                paymentDTO.getAmount(),
-                paymentDTO.getPaymentDate(),
-                paymentDTO.getStatus(),
-                paymentDTO.getTotalAmount()
-        );
-        return paymentDAO.update(payment);    }
+//        Session session = FactoryConfiguration.getInstance().getSession();
+//
+//        Patient patient = session.get(Patient.class, paymentDTO.getPatientId());
+//        if (patient == null) {
+//            return false;
+//        }
+//        Payment payment = new Payment(
+//                paymentDTO.getPaymentId(),
+//                patient,
+//                paymentDTO.getAmount(),
+//                paymentDTO.getPaymentDate(),
+//                paymentDTO.getStatus(),
+//                paymentDTO.getTotalAmount()
+//        );
+//        return paymentDAO.update(payment);
+//
+        return false;
+    }
 
     @Override
     public boolean delete(String ID) throws SQLException, IOException {

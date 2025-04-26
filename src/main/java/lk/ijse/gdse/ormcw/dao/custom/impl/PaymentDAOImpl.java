@@ -30,10 +30,10 @@ public class PaymentDAOImpl implements PaymentDAO {
             String substring = lastId.substring(3);
             int i = Integer.parseInt(substring);
             int newIdIndex = i + 1;
-            return String.format("P%03d", newIdIndex);
+            return String.format("PM%03d", newIdIndex);
         }
 
-        return "P001";
+        return "PM001";
     }
 
     @Override
@@ -102,7 +102,7 @@ public class PaymentDAOImpl implements PaymentDAO {
     public double getPreviousTotalAmount(String patientId) throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
-        String hql = "FROM Payment p WHERE p.patient.patientId = :patientId ORDER BY paymentDate DESC";
+        String hql = "FROM Payment p WHERE p.patient.patientId = :patientId ORDER BY paymentId DESC";
         Query<Payment> query = session.createQuery(hql, Payment.class);
         query.setParameter("patientId", patientId);
         query.setMaxResults(1);

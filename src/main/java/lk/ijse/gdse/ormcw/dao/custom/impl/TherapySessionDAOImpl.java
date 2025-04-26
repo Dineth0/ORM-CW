@@ -56,30 +56,10 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
     public boolean save(Therapy_Session therapySession) throws IOException, SQLException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
-
-        try {
-            // Therapy Session එක save කරනවා
-            session.save(therapySession);
-
-            // Patient Registration එක update කරන HQL Query
-            String hql = "UPDATE Patient_Registration pr " +
-                    "SET pr.sessionCount = pr.sessionCount + 1 " +
-                    "WHERE pr.patient.patientId = :patientId ";
-
-            Query query = session.createQuery(hql);
-            query.setParameter("patientId", therapySession.getPatient().getPatientId());
-//            query.setParameter("programId", therapySession.getPatient().getProgram().getProgramId());
-            query.executeUpdate();
-
-            transaction.commit();
-            return true;
-        } catch (Exception e) {
-            transaction.rollback();
-            e.printStackTrace();
-            return false;
-        } finally {
-            session.close();
-        }
+        session.save(therapySession);
+        transaction.commit();
+        session.close();
+        return true;
     }
 
     @Override
@@ -105,6 +85,21 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
         transaction.commit();
         session.close();
         return list;
+    }
+
+    @Override
+    public Therapy_Session findLastSessionByPatientId(String patientId) throws SQLException, ClassNotFoundException, IOException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        try {
+            Query<Therapy_Session> query = session.createQuery(
+                    "FROM Therapy_Session WHERE patient.patientId = :patientId ORDER BY sessionDate DESC, sessionTime DESC", Therapy_Session.class);
+            query.setParameter("patientId", patientId);
+            query.setMaxResults(1);
+            Therapy_Session result = query.uniqueResult();
+            return result;
+        } finally {
+            session.close();
+        }
     }
 
     @Override

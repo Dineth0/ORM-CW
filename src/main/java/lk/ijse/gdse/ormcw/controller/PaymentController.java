@@ -20,11 +20,13 @@ import lk.ijse.gdse.ormcw.bo.BOFactory;
 import lk.ijse.gdse.ormcw.bo.custom.PatientBO;
 import lk.ijse.gdse.ormcw.bo.custom.PatientRegistrationBO;
 import lk.ijse.gdse.ormcw.bo.custom.PaymentBO;
+import lk.ijse.gdse.ormcw.bo.custom.TherapySessionBO;
 import lk.ijse.gdse.ormcw.bo.exception.PaymentException;
 import lk.ijse.gdse.ormcw.config.FactoryConfiguration;
 import lk.ijse.gdse.ormcw.dto.PatientDTO;
 import lk.ijse.gdse.ormcw.dto.PaymentDTO;
 import lk.ijse.gdse.ormcw.entity.Payment;
+import lk.ijse.gdse.ormcw.entity.Therapy_Session;
 import lk.ijse.gdse.ormcw.tm.PaymentTM;
 import lk.ijse.gdse.ormcw.util.Regex;
 import net.sf.jasperreports.engine.*;
@@ -76,6 +78,13 @@ public class PaymentController implements Initializable {
     @FXML
     private TableColumn<PaymentTM,Double> coltotalAmount;
 
+
+    @FXML
+    private TableColumn<PaymentTM,Date> colsessiondate;
+
+    @FXML
+    private TableColumn<PaymentTM,String> colsessiontime;
+
     @FXML
     private ComboBox<String> combopatientid;
 
@@ -115,11 +124,21 @@ public class PaymentController implements Initializable {
     @FXML
     private Button btnsearch;
 
+    @FXML
+    private Label lblsession;
+
+    @FXML
+    private Label lblsessiondate;
+
+    @FXML
+    private Label lblsessiontime;
+
 
 
     PaymentBO paymentBO = (PaymentBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PAYMENT);
     PatientBO patientBO = (PatientBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PATIENT);
     PatientRegistrationBO patientRegistrationBO = (PatientRegistrationBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PATIENT_REGISTRATION);
+    TherapySessionBO therapySessionBO = (TherapySessionBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.THERAPY_SESSION);
 
 
     @Override
@@ -131,6 +150,9 @@ public class PaymentController implements Initializable {
         coldate.setCellValueFactory(new PropertyValueFactory<>("paymentDate"));
         colstatus.setCellValueFactory(new PropertyValueFactory<>("Status"));
         coltotalAmount.setCellValueFactory(new PropertyValueFactory<>("totalAmount"));
+        colsessiondate.setCellValueFactory(new PropertyValueFactory<>("sessionDate"));
+        colsessiontime.setCellValueFactory(new PropertyValueFactory<>("sessionTime"));
+
 
 
         try {
@@ -165,6 +187,12 @@ public class PaymentController implements Initializable {
         if (selectedID != null) {
             double regfee = patientRegistrationBO.getRegisterFeeByPatientId(selectedID);
             lblregfee.setText(String.format("%.2f", regfee));
+        }
+        Therapy_Session session = therapySessionBO.findLastSessionByPatientId(selectedID);
+        if (session != null) {
+            lblsession.setText(session.getSessionId());
+            lblsessiondate.setText(session.getSessionDate().toString());
+            lblsessiontime.setText(session.getSessionTime());
         }
 
     }
@@ -211,9 +239,11 @@ public class PaymentController implements Initializable {
         String paymentDate = lbldate.getText();
         String Status = lblstatus.getText();
 
+        String sessionDate = lblsessiondate.getText();
+        String sessionTime = lblsessiontime.getText();
         double regfee = Double.parseDouble(lblregfee.getText());
 
-        if(isValid()) {
+        if(!isValid()) {
             throw new PaymentException("Invalid amount input format");
         }
 
@@ -224,6 +254,7 @@ public class PaymentController implements Initializable {
         }else {
             totalAmount = previousTotalAmount + amount;
         }
+
        // System.out.println("Amount: " + amount + ", Reg Fee: " + regfee + ", Total Amount: " + totalAmount);
         System.out.println("Previous Total: " + previousTotalAmount);
         System.out.println("Amount: " + amount);
@@ -231,7 +262,7 @@ public class PaymentController implements Initializable {
         System.out.println("Calculated Total Amount: " + totalAmount);
         try{
             PaymentDTO paymentDTO = new PaymentDTO(
-                    PaymentId,patientId,amount,paymentDate,Status,totalAmount
+                    PaymentId,patientId,amount,paymentDate,Status,totalAmount,sessionDate,sessionTime
             );
             boolean isRegistered = paymentBO.save(paymentDTO);
 
@@ -260,6 +291,7 @@ public class PaymentController implements Initializable {
             txtamount.setText(String.valueOf(paymentTM.getAmount()));
             lbldate.setText(String.valueOf(paymentTM.getPaymentDate()));
             comboStatus.setValue(paymentTM.getStatus());
+
 
 
 
@@ -320,7 +352,9 @@ public class PaymentController implements Initializable {
                     paymentDTO.getAmount(),
                     paymentDTO.getPaymentDate(),
                     paymentDTO.getStatus(),
-                    paymentDTO.getTotalAmount()
+                    paymentDTO.getTotalAmount(),
+                    paymentDTO.getSessionDate(),
+                    paymentDTO.getSessionTime()
 
             );
             paymentTMS.add(paymentTM);
@@ -339,9 +373,12 @@ public class PaymentController implements Initializable {
         lblPatientid.setText("");
         txtamount.setText("");
         lbldate.setText("");
-        datepicker.setValue(null);
+
         comboStatus.setValue("");
-        combopatientid.setValue("");
+
+        lblsession.setText("");
+        lblsessiondate.setText("");
+        lblsessiontime.setText("");
 
 
     }
@@ -397,7 +434,9 @@ public class PaymentController implements Initializable {
                         payment.getAmount(),
                         payment.getPaymentDate(),
                         payment.getStatus(),
-                        payment.getTotalAmount()
+                        payment.getTotalAmount(),
+                        payment.getSessionDate(),
+                        payment.getSessionTime()
 
                 ));
             }

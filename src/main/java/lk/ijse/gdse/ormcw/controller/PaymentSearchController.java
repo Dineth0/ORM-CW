@@ -65,7 +65,9 @@ public class PaymentSearchController implements Initializable {
                     paymentDTO.getAmount(),
                     paymentDTO.getPaymentDate(),
                     paymentDTO.getStatus(),
-                    0
+                    0,
+                    null,
+                    ""
             ));
         }
         paymentearchTable.setItems(paymentList);

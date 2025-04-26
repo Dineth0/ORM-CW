@@ -25,7 +25,6 @@ public class Patient_Registration implements SuperEntity{
     private TherapyProgram therapyProgram;
 
     private Date registrationDate;
-    private int sessionCount;
     private double registerFee;
     private double balance;
 

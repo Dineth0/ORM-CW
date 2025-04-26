@@ -17,5 +17,7 @@ public class PaymentTM {
     private Date paymentDate;
     private String Status;
     private double totalAmount;
+    private Date sessionDate;
+    private String sessionTime;
 
 }

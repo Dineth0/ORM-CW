@@ -7,20 +7,20 @@
     pt.name, 
     pt.age,
     pt.contactNumber,
-    ts.sessionDate, 
-    ts.sessionTime,
     p.amount, 
     p.totalAmount,
     p.paymentDate, 
+    p.sessionDate,
+    p.sessionTime,
     p.status,
     t.therapistName,
     t.specialization
 FROM 
     Payment p 
 JOIN 
-    Patient pt ON p.patientId = pt.patientId 
-JOIN 
-    Therapy_Session ts ON ts.patientId = pt.patientId 
+    Patient pt ON p.patientId = pt.patientId
+JOIN
+    Therapy_Session ts ON ts.patientId = pt.patientId
 JOIN 
     Therapist t ON ts.therapistId = t.therapistId
 WHERE 
@@ -42,16 +42,6 @@ WHERE
 		<property name="com.jaspersoft.studio.field.label" value="contactNumber"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="patient"/>
 	</field>
-	<field name="sessionDate" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.name" value="sessionDate"/>
-		<property name="com.jaspersoft.studio.field.label" value="sessionDate"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="therapy_session"/>
-	</field>
-	<field name="sessionTime" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="sessionTime"/>
-		<property name="com.jaspersoft.studio.field.label" value="sessionTime"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="therapy_session"/>
-	</field>
 	<field name="amount" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.name" value="amount"/>
 		<property name="com.jaspersoft.studio.field.label" value="amount"/>
@@ -65,6 +55,16 @@ WHERE
 	<field name="paymentDate" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.name" value="paymentDate"/>
 		<property name="com.jaspersoft.studio.field.label" value="paymentDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
+	</field>
+	<field name="sessionDate" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="sessionDate"/>
+		<property name="com.jaspersoft.studio.field.label" value="sessionDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
+	</field>
+	<field name="sessionTime" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sessionTime"/>
+		<property name="com.jaspersoft.studio.field.label" value="sessionTime"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
 	</field>
 	<field name="status" class="java.lang.String">

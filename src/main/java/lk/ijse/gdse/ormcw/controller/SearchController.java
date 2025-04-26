@@ -60,8 +60,7 @@ public class SearchController implements Initializable {
                     dto.getSessionTime(),
                     dto.getStatus(),
                    "", //dto.getTherapistId(),
-                    dto.getPatientId(),
-                    ""//dto.getPayment()
+                    dto.getPatientId()
             ));
         }
         searchtable.setItems(sessionList);

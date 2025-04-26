@@ -17,16 +17,16 @@ public class TherapySessionDTO {
     private String status;
     private String therapistId;
     private String patientId;
-    private String payment;
 
-    public TherapySessionDTO(String sessionId, String sessionDate, String sessionTime, String status, String therapistId, String patientId, String payment) {
+
+    public TherapySessionDTO(String sessionId, String sessionDate, String sessionTime, String status, String therapistId, String patientId) {
         this.sessionId = sessionId;
         this.sessionDate = Date.valueOf(sessionDate);
         this.sessionTime = sessionTime;
         this.status = status;
         this.therapistId = therapistId;
         this.patientId = patientId;
-        this.payment = payment;
+
 
     }
 

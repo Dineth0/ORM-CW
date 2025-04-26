@@ -29,19 +29,18 @@ public class Therapy_Session implements SuperEntity{
     private Date sessionDate;
     private String sessionTime;
     private String status;
-    private String payment;
 
-    public Therapy_Session(String sessionId, Date sessionDate, String sessionTime, String status, Therapist therapist, Patient patient, String payment) {
+
+    public Therapy_Session(String sessionId, Date sessionDate, String sessionTime, String status, Therapist therapist, Patient patient) {
         this.sessionId = sessionId;
         this.sessionDate = sessionDate;
         this.sessionTime = sessionTime;
         this.status = status;
         this.therapist = therapist;
         this.patient = patient;
-        this.payment = payment;
+
     }
 
 
-    public Therapy_Session(String sessionId, Date sessionDate, String sessionTime, String status, String therapistId, String patientId, String payment) {
-    }
+
 }
