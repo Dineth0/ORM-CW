@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -19,11 +20,13 @@ import lk.ijse.gdse.ormcw.bo.BOFactory;
 import lk.ijse.gdse.ormcw.bo.custom.PatientBO;
 import lk.ijse.gdse.ormcw.bo.custom.PatientRegistrationBO;
 import lk.ijse.gdse.ormcw.bo.custom.PaymentBO;
+import lk.ijse.gdse.ormcw.bo.exception.PaymentException;
 import lk.ijse.gdse.ormcw.config.FactoryConfiguration;
 import lk.ijse.gdse.ormcw.dto.PatientDTO;
 import lk.ijse.gdse.ormcw.dto.PaymentDTO;
 import lk.ijse.gdse.ormcw.entity.Payment;
 import lk.ijse.gdse.ormcw.tm.PaymentTM;
+import lk.ijse.gdse.ormcw.util.Regex;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
 import org.hibernate.Session;
@@ -210,9 +213,17 @@ public class PaymentController implements Initializable {
 
         double regfee = Double.parseDouble(lblregfee.getText());
 
+        if(isValid()) {
+            throw new PaymentException("Invalid amount input format");
+        }
 
         double previousTotalAmount = paymentBO.getPreviousTotalAmount(patientId);
-        double totalAmount = previousTotalAmount + amount + regfee;
+        double totalAmount;
+        if(previousTotalAmount == 0){
+            totalAmount = amount + regfee;
+        }else {
+            totalAmount = previousTotalAmount + amount;
+        }
        // System.out.println("Amount: " + amount + ", Reg Fee: " + regfee + ", Total Amount: " + totalAmount);
         System.out.println("Previous Total: " + previousTotalAmount);
         System.out.println("Amount: " + amount);
@@ -235,8 +246,8 @@ public class PaymentController implements Initializable {
             new Alert(Alert.AlertType.ERROR, "Duplicate ID").show();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+        } catch (PaymentException | ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
@@ -328,6 +339,7 @@ public class PaymentController implements Initializable {
         lblPatientid.setText("");
         txtamount.setText("");
         lbldate.setText("");
+        datepicker.setValue(null);
         comboStatus.setValue("");
         combopatientid.setValue("");
 
@@ -413,6 +425,15 @@ public class PaymentController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    @FXML
+    void txtfeeKeyReleasedOnAction(KeyEvent event) {
+        Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.FEE, txtamount);
+    }
+    public boolean isValid(){
+        if(!Regex.setTextColor(lk.ijse.gdse.ormcw.util.TextField.FEE, txtamount)) return false;
+
+        return true;
     }
 
 

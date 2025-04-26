@@ -9,6 +9,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.gdse.ormcw.bo.BOFactory;
 import lk.ijse.gdse.ormcw.bo.custom.UserBO;
+import lk.ijse.gdse.ormcw.bo.exception.RegistrationException;
 import lk.ijse.gdse.ormcw.dto.UserDTO;
 import lk.ijse.gdse.ormcw.util.Regex;
 
@@ -61,28 +62,33 @@ public class RegistrationController implements Initializable {
     }
 
     @FXML
-    void RegistorOnAction(ActionEvent event) {
+    void RegistorOnAction(ActionEvent event) throws SQLException, IOException {
         String Id = lblid.getText();
         String UserName = txtname.getText();
         String Password = txtpassword.getText();
         String Role = lblrole.getText();
 
-        if(isValid()) {
+        try {
 
-            try {
-                boolean isRegistered = userBO.save(new UserDTO(Id, UserName, Password, Role));
-                if (isRegistered) {
-                    new Alert(Alert.AlertType.INFORMATION, "REGISTERED SUCCESSFULLY").show();
-                    clearFeilds();
-                    loginPage();
-                } else {
-                    new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN").show();
-                }
-            } catch (IOException e) {
-                new Alert(Alert.AlertType.ERROR, "duplicate Id");
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+            if(UserName.isEmpty() || Password.isEmpty() || Role.isEmpty()){
+                throw new RegistrationException("Filed is empty. Please fill it");
             }
+
+
+            if (!isValid()) {
+                throw new RegistrationException("Invalid input format");
+
+            }
+                    boolean isRegistered = userBO.save(new UserDTO(Id, UserName, Password, Role));
+                    if (isRegistered) {
+                        new Alert(Alert.AlertType.INFORMATION, "REGISTERED SUCCESSFULLY").show();
+                        clearFeilds();
+                        loginPage();
+                    } else {
+                        new Alert(Alert.AlertType.ERROR, "PLEASE TRY AGAIN").show();
+                    }
+        }catch (RegistrationException e){
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
     public void clearFeilds(){

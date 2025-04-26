@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import lk.ijse.gdse.ormcw.bo.BOFactory;
 import lk.ijse.gdse.ormcw.bo.custom.UserBO;
+import lk.ijse.gdse.ormcw.bo.exception.LoginException;
 import lk.ijse.gdse.ormcw.dto.UserDTO;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -42,23 +43,34 @@ public class LoginFormController {
 
     @FXML
     void loginOnAction(ActionEvent event) throws Exception {
-        String userName = txtUsername.getText();
-        String password = txtPassword.getText();
-        String role = txtRole.getText();
+        try {
+            String userName = txtUsername.getText();
+            String password = txtPassword.getText();
+            String role = txtRole.getText();
 
-        String dbPassword =  getUserPassword();
+            String dbPassword = getUserPassword();
 
-        boolean isPasswordCorrect = BCrypt.checkpw(password,dbPassword);
-        if (isPasswordCorrect) {
-
-            if (role.equals("admin")) {
-                AdminDashboard();
-            } else if (role.equals("receptionist")){
-                ResipDashboard();
+            if(dbPassword == null){
+                throw new LoginException("User not found");
             }
 
-        } else {
-            new Alert(Alert.AlertType.ERROR,"Invalid Password.Try Again").show();
+            boolean isPasswordCorrect = BCrypt.checkpw(password, dbPassword);
+            if(!isPasswordCorrect){
+                throw new LoginException("Wrong password");
+            }
+            if (isPasswordCorrect) {
+
+                if (role.equals("admin")) {
+                    AdminDashboard();
+                } else if (role.equals("receptionist")) {
+                    ResipDashboard();
+                }
+
+            } else {
+                throw new LoginException("Invalid Role");
+            }
+        }catch (LoginException e){
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
 
 

@@ -225,11 +225,11 @@ public class TherapySessionController implements Initializable {
     @FXML
     void SaveOnAction(ActionEvent event) {
         String sessionId = lblid.getText();
-        String sessionDate = lbldate.getText();  // Date should be in proper format, for example, "yyyy-MM-dd"
+        String sessionDate = lbldate.getText();
         String sessionTime = txttime.getText();
         String status = combostatus.getValue();
-        String therapistId = combotherapistId.getValue();  // therapistId should be a valid String
-        String patientId = combopatientid.getValue();  // patientId should be a valid String
+        String therapistId = combotherapistId.getValue();
+        String patientId = combopatientid.getValue();
         String payment = combopayment.getValue();
 
         try {

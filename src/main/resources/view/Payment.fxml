@@ -76,7 +76,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txtamount" layoutX="146.0" layoutY="155.0" style="-fx-opacity: 0.7;" />
+      <TextField fx:id="txtamount" layoutX="146.0" layoutY="155.0" onKeyReleased="#txtfeeKeyReleasedOnAction" style="-fx-opacity: 0.7;" />
       <Label layoutX="42.0" layoutY="249.0" prefHeight="31.0" prefWidth="101.0" text="Full Payment">
          <font>
             <Font name="System Bold" size="14.0" />
